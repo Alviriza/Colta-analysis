@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colta — Brand Kit 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-soft:#f7f5f1;
+    --bg-card:#ffffff;
+    --ink:#0b0b0b;
+    --ink-soft:#2e2e2e;
+    --muted:#6e6e6e;
+    --muted-2:#a8a59e;
+    --line:#e8e6e1;
+    --line-strong:#1a1a1a;
+    --obsidian:#0B0B0B;
+    --graphite:#2E2E2E;
+    --stone:#A8A59E;
+    --mist:#DAD7D1;
+    --porcelain:#F7F5F1;
+    --radius-sm:10px;
+    --radius:16px;
+    --radius-lg:24px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,0.04), 0 1px 1px rgba(0,0,0,0.03);
+    --shadow:0 4px 24px -8px rgba(0,0,0,0.08), 0 2px 6px -2px rgba(0,0,0,0.04);
+    --shadow-lg:0 10px 40px -12px rgba(0,0,0,0.12), 0 4px 12px -4px rgba(0,0,0,0.06);
+    --sidebar-w:280px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  body{min-height:100vh;font-size:15px;line-height:1.55;letter-spacing:-0.01em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  img{max-width:100%;display:block}
+
+  /* LAYOUT */
+  .app{display:flex;min-height:100vh}
+
+  /* SIDEBAR */
+  .sidebar{
+    width:var(--sidebar-w);
+    background:#fff;
+    border-right:1px solid var(--line);
+    padding:28px 22px;
+    position:fixed;
+    top:0;left:0;bottom:0;
+    overflow-y:auto;
+    z-index:50;
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
+  }
+  .sidebar.collapsed{transform:translateX(-100%)}
+
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .brand-mark{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--obsidian);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:600;font-size:14px;letter-spacing:-.02em;
+  }
+  .brand-name{font-size:18px;font-weight:600;letter-spacing:-.03em}
+  .brand-sub{font-size:11px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:2px;margin-left:44px;margin-bottom:24px}
+
+  .nav-group{margin-top:22px}
+  .nav-group-title{
+    font-size:10.5px;font-weight:600;
+    color:var(--muted);letter-spacing:.22em;
+    text-transform:uppercase;
+    padding:0 10px 8px;
+  }
+  .nav-item{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:10px 12px;border-radius:10px;
+    color:var(--ink-soft);font-size:13.5px;
+    transition:all .2s ease;
+    margin-bottom:2px;
+    cursor:pointer;
+  }
+  .nav-item:hover{background:var(--porcelain);color:var(--ink)}
+  .nav-item.active{background:var(--obsidian);color:#fff}
+  .nav-item.active .nav-meta{color:rgba(255,255,255,.6)}
+  .nav-icon{width:18px;flex-shrink:0;margin-top:1px;opacity:.8;font-size:14px}
+  .nav-body{display:flex;flex-direction:column;gap:1px;line-height:1.3}
+  .nav-title{font-weight:500}
+  .nav-meta{font-size:11px;color:var(--muted);font-weight:400}
+
+  .sidebar-footer{
+    margin-top:36px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:11px;color:var(--muted);letter-spacing:.05em;
+  }
+
+  /* MAIN */
+  .main{
+    flex:1;margin-left:var(--sidebar-w);
+    transition:margin-left .35s cubic-bezier(.4,0,.2,1);
+    min-width:0;
+  }
+  .main.expanded{margin-left:0}
+
+  /* TOPBAR */
+  .topbar{
+    position:sticky;top:0;z-index:30;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    border-bottom:1px solid var(--line);
+    padding:14px 32px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .toggle-btn{
+    width:38px;height:38px;border-radius:10px;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    transition:all .2s ease;flex-shrink:0;
+  }
+  .toggle-btn:hover{background:var(--porcelain);border-color:#d4d2cc}
+  .toggle-btn svg{width:18px;height:18px}
+  .crumb{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+  .crumb strong{color:var(--ink);font-weight:600}
+  .topbar-right{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .pill{
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    padding:6px 12px;border-radius:999px;
+    background:var(--porcelain);color:var(--ink-soft);font-weight:500;
+  }
+
+  /* CONTENT */
+  .content{padding:40px 48px 80px;max-width:1280px;margin:0 auto}
+
+  /* HERO */
+  .hero{
+    background:var(--porcelain);
+    border-radius:var(--radius-lg);
+    padding:48px 56px 40px;
+    position:relative;overflow:hidden;
+    margin-bottom:32px;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 85% 50%,rgba(0,0,0,.04),transparent 50%);
+    pointer-events:none;
+  }
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:20px;position:relative;z-index:1}
+  .hero-label{
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;
+  }
+  .hero-tags{display:flex;flex-direction:column;gap:4px;align-items:flex-end;font-size:11px;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase;font-weight:500}
+  .hero-tags span{border-left:1px solid var(--ink);padding-left:14px}
+
+  .hero-image-wrap{
+    background:#fff;
+    border-radius:var(--radius);
+    padding:48px 40px;
+    margin:8px 0 24px;
+    position:relative;z-index:1;
+    text-align:center;
+  }
+  .hero-image{
+    max-width:880px;width:100%;height:auto;margin:0 auto;
+  }
+  .hero-meta{
+    display:flex;justify-content:space-between;
+    margin-top:16px;font-size:11px;letter-spacing:.2em;
+    color:var(--muted);text-transform:uppercase;font-weight:500;
+    position:relative;z-index:1;
+  }
+
+  /* SECTION */
+  .section{margin-bottom:56px}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:24px;flex-wrap:wrap;gap:16px;
+  }
+  .section-title{
+    font-size:clamp(28px,3.4vw,42px);
+    font-weight:300;letter-spacing:-.03em;line-height:1.05;
+    color:var(--ink);
+  }
+  .section-sub{
+    display:block;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--muted);
+    font-weight:500;margin-top:8px;
+  }
+  .section-tags{font-size:11px;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase;font-weight:500;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+  .section-tags span{border-left:1px solid var(--ink);padding-left:14px}
+  .section-desc{max-width:520px;color:var(--muted);font-size:14px;line-height:1.65;margin-top:8px}
+
+  /* GRID & CARD */
+  .grid{display:grid;gap:20px}
+  .grid-2{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(3,1fr)}
+  .grid-4{grid-template-columns:repeat(4,1fr)}
+  .grid-5{grid-template-columns:repeat(5,1fr)}
+
+  .card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px;
+    transition:all .25s ease;
+    overflow:hidden;
+  }
+  .card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+  .card-label{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px;display:block}
+  .card-title{font-size:18px;font-weight:500;letter-spacing:-.02em;margin-bottom:8px}
+  .card-text{font-size:13px;color:var(--muted);line-height:1.6}
+
+  /* IMAGE CARDS */
+  .img-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:all .25s ease;
+  }
+  .img-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+  .img-card-frame{
+    background:var(--porcelain);
+    padding:0;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .img-card-frame img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .img-card-body{padding:16px 18px 18px}
+
+  .img-frame{
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--porcelain);
+    border:1px solid var(--line);
+  }
+  .img-frame img{width:100%;display:block}
+
+  /* INFO ROW */
+  .info-row{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:24px;padding-top:28px;margin-top:28px;
+    border-top:1px solid var(--line);
+  }
+  .info-block h4{font-size:13px;font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
+  .info-block p{font-size:13px;color:var(--muted);line-height:1.6}
+
+  /* COLOR PALETTE */
+  .color-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
+  }
+  .color-card{
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:#fff;
+    transition:all .25s ease;
+  }
+  .color-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .color-swatch{
+    aspect-ratio:3/4;
+    width:100%;
+  }
+  .color-info{padding:18px 16px 20px}
+  .color-num{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.1em}
+  .color-name{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-top:4px}
+  .color-role{font-size:12px;color:var(--muted);margin-bottom:14px}
+  .color-data{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--ink-soft);letter-spacing:.02em}
+  .color-data span{display:flex;gap:8px}
+  .color-data strong{display:inline-block;width:34px;color:var(--muted);font-weight:500}
+
+  /* TYPOGRAPHY */
+  .type-stack{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  .type-row{display:flex;align-items:baseline;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .type-row:last-child{border-bottom:none}
+  .type-size{font-size:11px;color:var(--muted);letter-spacing:.1em;width:70px;flex-shrink:0}
+  .type-sample{font-weight:400;color:var(--ink);letter-spacing:-.02em;line-height:1.1;flex:1}
+
+  /* PRINCIPLES */
+  .principles{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:0;background:var(--porcelain);
+    border-radius:var(--radius);overflow:hidden;
+    margin-top:24px;
+  }
+  .principle{padding:28px;border-right:1px solid var(--line)}
+  .principle:last-child{border-right:none}
+  .principle h4{font-size:14px;font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
+  .principle p{font-size:13px;color:var(--muted);line-height:1.6}
+
+  /* FULL IMAGE BANNER */
+  .full-image{
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--porcelain);
+  }
+  .full-image img{width:100%;display:block}
+
+  /* FOOTER */
+  .footer{
+    margin-top:60px;padding-top:32px;
+    border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:11px;letter-spacing:.2em;
+    color:var(--muted);text-transform:uppercase;font-weight:500;
+  }
+
+  /* OVERLAY (MOBILE) */
+  .overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.4);
+    backdrop-filter:blur(2px);
+    z-index:40;opacity:0;pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .overlay.active{opacity:1;pointer-events:auto}
+
+  /* APP MOCKUPS */
+  .app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .app-mockup{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:all .25s ease;
+  }
+  .app-mockup:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .app-mockup-frame{background:var(--porcelain);padding:12px;display:flex;align-items:center;justify-content:center;min-height:340px}
+  .app-mockup-frame img{max-height:340px;width:auto;border-radius:8px}
+  .app-mockup-body{padding:14px 16px 16px}
+  .app-mockup-num{font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;font-weight:600}
+  .app-mockup-name{font-size:13px;font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}
+  .app-mockup-desc{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.5}
+
+  /* CAMPAIGN GRID */
+  .campaign-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+  .campaign-grid .cc-1{grid-column:span 6}
+  .campaign-grid .cc-2{grid-column:span 6}
+  .campaign-grid .cc-3{grid-column:span 4}
+  .campaign-grid .cc-4{grid-column:span 4}
+  .campaign-grid .cc-5{grid-column:span 4}
+
+  /* APPAREL GRID */
+  .apparel-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;grid-auto-rows:auto}
+  .ap-tall{grid-column:span 4;grid-row:span 2}
+  .ap-half{grid-column:span 4}
+  .ap-full{grid-column:span 4}
+  .apparel-grid .img-frame img{height:100%;object-fit:cover}
+
+  /* RESPONSIVE */
+  @media (max-width:1100px){
+    .grid-4,.grid-5{grid-template-columns:repeat(3,1fr)}
+    .color-grid{grid-template-columns:repeat(3,1fr)}
+    .principles{grid-template-columns:1fr;}
+    .principle{border-right:none;border-bottom:1px solid var(--line)}
+    .principle:last-child{border-bottom:none}
+    .app-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:900px){
+    .content{padding:28px 24px 60px}
+    .hero{padding:36px 28px 32px}
+    .hero-image-wrap{padding:32px 20px}
+    .grid-3,.grid-4,.grid-5{grid-template-columns:repeat(2,1fr)}
+    .color-grid{grid-template-columns:repeat(2,1fr)}
+    .info-row{grid-template-columns:1fr;gap:20px}
+    .campaign-grid .cc-1,.campaign-grid .cc-2{grid-column:span 12}
+    .campaign-grid .cc-3,.campaign-grid .cc-4,.campaign-grid .cc-5{grid-column:span 6}
+    .ap-tall,.ap-half,.ap-full{grid-column:span 6}
+  }
+  @media (max-width:768px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .main{margin-left:0}
+    .topbar{padding:12px 18px}
+    .content{padding:20px 18px 60px}
+    .hero{padding:24px 18px 20px;border-radius:var(--radius)}
+    .hero-image-wrap{padding:24px 14px}
+    .hero-meta{flex-direction:column;gap:6px}
+    .grid-2,.grid-3,.grid-4,.grid-5{grid-template-columns:1fr}
+    .section-head{flex-direction:column;align-items:flex-start}
+    .section-tags{align-items:flex-start;flex-direction:row;flex-wrap:wrap;gap:14px}
+    .section-tags span{border-left:none;padding-left:0;border-bottom:1px solid var(--ink);padding-bottom:2px}
+    .hero-tags{align-items:flex-start;flex-direction:row;gap:14px;flex-wrap:wrap}
+    .hero-tags span{border-left:none;padding-left:0}
+    .app-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .campaign-grid .cc-3,.campaign-grid .cc-4,.campaign-grid .cc-5{grid-column:span 12}
+    .ap-tall,.ap-half,.ap-full{grid-column:span 12}
+    .color-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:480px){
+    .color-grid{grid-template-columns:1fr}
+    .app-grid{grid-template-columns:1fr}
+    .crumb{font-size:11.5px}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">c.</div>
+      <div>
+        <div class="brand-name">colta</div>
+      </div>
+    </div>
+    <div class="brand-sub">Brand Kit 01</div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Identity</div>
+      <a href="#logo" class="nav-item active" data-target="logo">
+        <span class="nav-icon">◐</span>
+        <span class="nav-body">
+          <span class="nav-title">Primary Logo</span>
+          <span class="nav-meta">Wordmark · Clarity, Balance</span>
+        </span>
+      </a>
+      <a href="#presentation" class="nav-item" data-target="presentation">
+        <span class="nav-icon">◑</span>
+        <span class="nav-body">
+          <span class="nav-title">Logo Presentation</span>
+          <span class="nav-meta">Workspace. Refined.</span>
+        </span>
+      </a>
+      <a href="#system" class="nav-item" data-target="system">
+        <span class="nav-icon">◇</span>
+        <span class="nav-body">
+          <span class="nav-title">System &amp; Variations</span>
+          <span class="nav-meta">Lockups, tonal, misuse</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Foundations</div>
+      <a href="#colors" class="nav-item" data-target="colors">
+        <span class="nav-icon">◧</span>
+        <span class="nav-body">
+          <span class="nav-title">Colour Palette</span>
+          <span class="nav-meta">Core &amp; supporting tones</span>
+        </span>
+      </a>
+      <a href="#typography" class="nav-item" data-target="typography">
+        <span class="nav-icon">Aa</span>
+        <span class="nav-body">
+          <span class="nav-title">Typography</span>
+          <span class="nav-meta">Plus Jakarta Sans</span>
+        </span>
+      </a>
+      <a href="#icons" class="nav-item" data-target="icons">
+        <span class="nav-icon">◰</span>
+        <span class="nav-body">
+          <span class="nav-title">Icon Collection</span>
+          <span class="nav-meta">24-pt grid · 2px stroke</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Applications</div>
+      <a href="#social" class="nav-item" data-target="social">
+        <span class="nav-icon">◉</span>
+        <span class="nav-body">
+          <span class="nav-title">Social Media</span>
+          <span class="nav-meta">Visuals &amp; applications</span>
+        </span>
+      </a>
+      <a href="#banners" class="nav-item" data-target="banners">
+        <span class="nav-icon">▤</span>
+        <span class="nav-body">
+          <span class="nav-title">Banners &amp; Highlights</span>
+          <span class="nav-meta">Social campaign system</span>
+        </span>
+      </a>
+      <a href="#highlights" class="nav-item" data-target="highlights">
+        <span class="nav-icon">◌</span>
+        <span class="nav-body">
+          <span class="nav-title">Story Highlights</span>
+          <span class="nav-meta">Icon logic &amp; usage</span>
+        </span>
+      </a>
+      <a href="#stories" class="nav-item" data-target="stories">
+        <span class="nav-icon">▣</span>
+        <span class="nav-body">
+          <span class="nav-title">Story Templates</span>
+          <span class="nav-meta">Tutorial, carousel, reel</span>
+        </span>
+      </a>
+      <a href="#campaign" class="nav-item" data-target="campaign">
+        <span class="nav-icon">▥</span>
+        <span class="nav-body">
+          <span class="nav-title">Urban Campaign</span>
+          <span class="nav-meta">OOH · Transit · Print</span>
+        </span>
+      </a>
+      <a href="#mockups" class="nav-item" data-target="mockups">
+        <span class="nav-icon">▦</span>
+        <span class="nav-body">
+          <span class="nav-title">Product Mockups</span>
+          <span class="nav-meta">Branded applications</span>
+        </span>
+      </a>
+      <a href="#packaging" class="nav-item" data-target="packaging">
+        <span class="nav-icon">▢</span>
+        <span class="nav-body">
+          <span class="nav-title">Packaging Concept</span>
+          <span class="nav-meta">Elevate Desk Series</span>
+        </span>
+      </a>
+      <a href="#apparel" class="nav-item" data-target="apparel">
+        <span class="nav-icon">▧</span>
+        <span class="nav-body">
+          <span class="nav-title">Apparel</span>
+          <span class="nav-meta">Wear the standard</span>
+        </span>
+      </a>
+      <a href="#app" class="nav-item" data-target="app">
+        <span class="nav-icon">▨</span>
+        <span class="nav-body">
+          <span class="nav-title">App UI/UX</span>
+          <span class="nav-meta">Digital experience</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Landing Pages</div>
+      <a href="index.html" class="nav-item" data-target="social">
+        <span class="nav-icon">🏠︎</span>
+        <span class="nav-body">
+          <span class="nav-title">Home</span>
+          <span class="nav-meta">Back To Landing Page</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      © Colta 2026 · Surabaya · ID
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main" id="main">
+    <header class="topbar">
+      <button class="toggle-btn" id="toggleBtn" aria-label="Toggle sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div class="crumb">Brand Kit 01 · <strong>colta</strong> · Workspace, Refined</div>
+      <div class="topbar-right">
+        <span class="pill">EST. 2020</span>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ===== HERO / PRIMARY LOGO ===== -->
+      <section class="section" id="logo">
+        <div class="hero">
+          <div class="hero-top">
+            <div>
+              <div class="hero-label">Primary Mark · Wordmark</div>
+              <h1 style="font-size:28px;font-weight:300;letter-spacing:-.02em;margin-top:8px">Primary Logo</h1>
+              <p style="color:var(--muted);font-size:13.5px;margin-top:10px;max-width:340px;line-height:1.6">The primary wordmark. Clean, balanced, and distinctly modern. Designed for clarity, versatility, and enduring recognition.</p>
+            </div>
+            <div class="hero-tags">
+              <span>Clarity</span>
+              <span>Balance</span>
+              <span>Modernity</span>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/img/hero-logo.png" alt="Colta wordmark logo">
+          </div>
+
+          <div class="hero-meta">
+            <span>EST. 2020</span>
+            <span>Workspace · Refined</span>
+            <span>Surabaya · ID</span>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-block">
+            <h4>About the Logo</h4>
+            <p>Colta is a refined expression of modern simplicity. The wordmark is built with rounded geometric forms and open counters, creating a sense of openness, precision, and calm confidence.</p>
+          </div>
+          <div class="info-block">
+            <h4>Construction</h4>
+            <p>Its clean construction ensures strong legibility across every touchpoint — from digital interfaces to physical environments.</p>
+          </div>
+          <div class="info-block">
+            <h4>Usage Note</h4>
+            <p>Use this version as the main identifier for all brand communications. Do not alter, redraw, or recreate the wordmark.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PRESENTATION ===== -->
+      <section class="section" id="presentation">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Logo Presentation</h2>
+            <span class="section-sub">Marks · Monogram · Typography Detail</span>
+          </div>
+          <div class="section-tags">
+            <span>Quiet</span>
+            <span>Geometric</span>
+            <span>Deliberate</span>
+          </div>
+        </div>
+
+        <div class="full-image" style="margin-bottom:20px">
+          <img src="assets/img/presentation-hero.png" alt="Colta primary mark presentation — workspace refined">
+        </div>
+
+        <div class="grid grid-3">
+          <div class="img-card">
+            <div class="img-card-frame" style="aspect-ratio:1;background:var(--porcelain)">
+              <img src="assets/img/monogram-c.png" alt="Colta monogram c." style="object-fit:contain;padding:8px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Monogram Icon</span>
+              <p class="card-text">A quiet anchor of intention. Lowercase, geometric, deliberate.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="aspect-ratio:1;background:var(--obsidian)">
+              <img src="assets/img/monogram-co.png" alt="Colta CO inverse mark" style="object-fit:cover">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Inverse Mark</span>
+              <p class="card-text">For dark surfaces and product. Inverse pairing.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="aspect-ratio:1;background:var(--porcelain)">
+              <img src="assets/img/typography-o.png" alt="Typography detail O" style="object-fit:contain;padding:8px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Typography Detail</span>
+              <p class="card-text">Open counters and even stroke contrast create the wordmark's signature calm rhythm.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== LOGO SYSTEM ===== -->
+      <section class="section" id="system">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Logo System &amp; Variations</h2>
+            <span class="section-sub">A system, not a logo</span>
+          </div>
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom:20px">
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/alternate-lockups.png" alt="Alternate lockups top" style="object-fit:cover">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Alternate Lockups</span>
+              <p class="card-text">Five approved lowercase configurations across product, packaging, and digital surfaces. Always lowercase. Always grounded.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:var(--obsidian)">
+              <img src="assets/img/inverted-dark.png" alt="Inverted dark surface" style="object-fit:cover">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Inverted · Dark Surface</span>
+              <p class="card-text">For dark surfaces &amp; product applications. Ensures legibility in low-light environments.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/icon-only.png" alt="Icon only circle" style="object-fit:contain;padding:20px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Icon Only</span>
+              <p class="card-text">Compact form for favicon, app icons, and small-scale identifications.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom:20px">
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/clear-space.png" alt="Clear space diagram" style="object-fit:contain;padding:16px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Clear Space</span>
+              <p class="card-text">Minimum clear space equals ½ the height of the wordmark cap on every side.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/tonal-variants.png" alt="Tonal variants" style="object-fit:contain;padding:16px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Tonal Variants</span>
+              <p class="card-text">Approved opacities for monochrome layouts: 100% · 80% · 35% · REV.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/approved-pairings.png" alt="Approved pairings" style="object-fit:contain;padding:16px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Approved Pairings</span>
+              <p class="card-text">On Pearl · default. On Onyx · inverse. On Silver · product surfaces.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="img-card">
+          <div class="img-card-frame" style="background:#fff;aspect-ratio:auto">
+            <img src="assets/img/misuse.png" alt="Misuse examples" style="object-fit:contain;padding:16px">
+          </div>
+          <div class="img-card-body">
+            <span class="card-label">Misuse · What Not To Do</span>
+            <p class="card-text">Never stretch · recolor · rotate · place on busy backgrounds. Distortion compromises the system.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== COLORS ===== -->
+      <section class="section" id="colors">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Colour Palette</h2>
+            <span class="section-sub">Core &amp; supporting tones</span>
+            <p class="section-desc">A restrained palette designed to express clarity, balance, and quiet confidence. Neutral tones create a premium foundation while contrast is used to establish hierarchy and focus.</p>
+          </div>
+          <div class="section-tags">
+            <span>Clarity</span>
+            <span>Balance</span>
+            <span>Modernity</span>
+          </div>
+        </div>
+
+        <!-- <div class="full-image" style="margin-bottom:24px">
+          <img src="assets/img/colors-full.jpg" alt="Full color palette swatches">
+        </div> -->
+
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-swatch" style="background:#0B0B0B"></div>
+            <div class="color-info">
+              <div class="color-num">01</div>
+              <div class="color-name">Obsidian</div>
+              <div class="color-role">Primary</div>
+              <div class="color-data">
+                <span><strong>HEX</strong>#0B0B0B</span>
+                <span><strong>RGB</strong>11 · 11 · 11</span>
+                <span><strong>CMYK</strong>0 0 0 96</span>
+              </div>
+            </div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background:#2E2E2E"></div>
+            <div class="color-info">
+              <div class="color-num">02</div>
+              <div class="color-name">Graphite</div>
+              <div class="color-role">Secondary</div>
+              <div class="color-data">
+                <span><strong>HEX</strong>#2E2E2E</span>
+                <span><strong>RGB</strong>46 · 46 · 46</span>
+                <span><strong>CMYK</strong>0 0 0 82</span>
+              </div>
+            </div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background:#A8A59E"></div>
+            <div class="color-info">
+              <div class="color-num">03</div>
+              <div class="color-name">Stone</div>
+              <div class="color-role">Neutral</div>
+              <div class="color-data">
+                <span><strong>HEX</strong>#A8A59E</span>
+                <span><strong>RGB</strong>168 · 165 · 158</span>
+                <span><strong>CMYK</strong>0 2 6 34</span>
+              </div>
+            </div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background:#DAD7D1"></div>
+            <div class="color-info">
+              <div class="color-num">04</div>
+              <div class="color-name">Mist</div>
+              <div class="color-role">Support</div>
+              <div class="color-data">
+                <span><strong>HEX</strong>#DAD7D1</span>
+                <span><strong>RGB</strong>218 · 215 · 209</span>
+                <span><strong>CMYK</strong>0 1 4 15</span>
+              </div>
+            </div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background:#F7F5F1;border-bottom:1px solid var(--line)"></div>
+            <div class="color-info">
+              <div class="color-num">05</div>
+              <div class="color-name">Porcelain</div>
+              <div class="color-role">Base</div>
+              <div class="color-data">
+                <span><strong>HEX</strong>#F7F5F1</span>
+                <span><strong>RGB</strong>247 · 245 · 241</span>
+                <span><strong>CMYK</strong>0 1 2 3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="principles">
+          <div class="principle">
+            <h4>Restraint</h4>
+            <p>A focused range of neutrals keeps the system timeless and refined.</p>
+          </div>
+          <div class="principle">
+            <h4>Contrast</h4>
+            <p>Deep tones and soft bases work together to create legibility and emphasis.</p>
+          </div>
+          <div class="principle">
+            <h4>Versatility</h4>
+            <p>The palette adapts seamlessly across editorial, digital, product, and environmental applications.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TYPOGRAPHY ===== -->
+      <section class="section" id="typography">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Typography</h2>
+            <span class="section-sub">Plus Jakarta Sans — refined geometric system</span>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <span class="card-label">Display</span>
+            <div class="type-stack">
+              <div class="type-row"><span class="type-size">96 / Light</span><span class="type-sample" style="font-size:48px;font-weight:300">Aa</span></div>
+              <div class="type-row"><span class="type-size">64 / Regular</span><span class="type-sample" style="font-size:32px;font-weight:400">Workspace</span></div>
+              <div class="type-row"><span class="type-size">48 / Medium</span><span class="type-sample" style="font-size:26px;font-weight:500">Refined.</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <span class="card-label">Body &amp; UI</span>
+            <div class="type-stack">
+              <div class="type-row"><span class="type-size">18 / Regular</span><span class="type-sample" style="font-size:18px">Technology made human.</span></div>
+              <div class="type-row"><span class="type-size">14 / Regular</span><span class="type-sample" style="font-size:14px">Clarity at every touchpoint.</span></div>
+              <div class="type-row"><span class="type-size">11 / Medium</span><span class="type-sample" style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:500">Built with purpose</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ICONS ===== -->
+      <section class="section" id="icons">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Icon Collection</h2>
+            <span class="section-sub">Custom icon set · 2px stroke · 24-pt grid</span>
+            <p class="section-desc">A collection of custom icons crafted to communicate clearly and consistently across digital experiences.</p>
+          </div>
+          <div class="section-tags">
+            <span>Clarity</span>
+            <span>Balance</span>
+            <span>Modernity</span>
+          </div>
+        </div>
+
+        <div class="full-image" style="margin-bottom:20px">
+          <img src="assets/img/icons-grid-1.png" alt="UI icon collection">
+        </div>
+
+        <div class="full-image" style="margin-bottom:24px">
+          <img src="assets/img/icons-grid-2.png" alt="Product feature icon collection">
+        </div>
+
+        <div class="principles">
+          <div class="principle">
+            <h4>Stroke Weight</h4>
+            <p>Icons use a consistent 2px stroke to maintain visual harmony across the set.</p>
+          </div>
+          <div class="principle">
+            <h4>Corner Radius</h4>
+            <p>Rounded corners (radius 2px) ensure a soft, approachable, and premium feel.</p>
+          </div>
+          <div class="principle">
+            <h4>Scalability</h4>
+            <p>Icons are designed to perform clearly at any size, from 16px to 512px.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SOCIAL MEDIA ===== -->
+      <section class="section" id="social">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Social Media</h2>
+            <span class="section-sub">Visuals &amp; applications</span>
+            <p class="section-desc">A cohesive social presence built for clarity, consistency, and connection.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="margin-bottom:20px">
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/ig-feed-grid.png" alt="Instagram feed 3x3 grid">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Instagram Feed</span>
+              <p class="card-text">A cohesive 3-column grid balancing typography, product photography, and brand statements.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff;display:flex;align-items:center">
+              <img src="assets/img/ig-stories.png" alt="Instagram stories trio" style="width:100%">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Stories</span>
+              <p class="card-text">9:16 vertical compositions for ephemeral content, brand storytelling, and product reveals.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/campaign-posts.jpg" alt="Campaign posts">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Campaign Posts</span>
+              <p class="card-text">Product-led storytelling with deliberate negative space.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/quote-cards.jpg" alt="Quote cards">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Quote Cards</span>
+              <p class="card-text">Editorial typography for brand voice and shareable insights.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/promo-tiles.jpg" alt="Promo tiles">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Promo Tiles</span>
+              <p class="card-text">Modular tiles for product launches, drops, and limited releases.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:60px">
+            <h2 class="section-title">Reels Cover</h2>
+            <span class="section-sub">Visuals &amp; applications</span>
+            <p class="section-desc">A cohesive social presence built for clarity, consistency, and connection.</p>
+          </div>
+
+        <div class="full-image" style="margin-top:20px">
+          <img src="assets/img/reels-cover.png" alt="Reels covers - tutorials, tips, BTS">
+        </div>
+      </section>
+
+      <!-- ===== BANNERS ===== -->
+      <section class="section" id="banners">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Banners &amp; Highlight Assets</h2>
+            <span class="section-sub">Social campaign system</span>
+          </div>
+          <div class="section-tags">
+            <span>Clarity</span>
+            <span>Balance</span>
+            <span>Modernity</span>
+          </div>
+        </div>
+
+        <div class="img-card" style="margin-bottom:20px">
+          <div class="img-card-frame" style="background:#fff">
+            <img src="assets/img/banners-row.jpg" alt="Three brand banners">
+          </div>
+          <div class="img-card-body">
+            <span class="card-label">Banners</span>
+            <p class="card-text">Three-banner system for web headers, profile covers, and digital ad placements.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="margin-bottom:20px">
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/story-stickers.jpg" alt="Story stickers and highlight preview">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Story Stickers · Highlight Preview</span>
+              <p class="card-text">Reusable sticker library and a unified profile-row preview for consistent brand recall.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:#fff">
+              <img src="assets/img/content-tiles.jpg" alt="Content tiles">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">Content Tiles</span>
+              <p class="card-text">Card system for collections, reviews, and care guides — clear, scannable, scalable.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-row" style="margin-top:0;padding-top:0;border-top:none">
+          <div class="info-block">
+            <h4>Organized by Purpose</h4>
+            <p>Clear categories make content easy to explore.</p>
+          </div>
+          <div class="info-block">
+            <h4>Consistent Recognition</h4>
+            <p>Unified visual language builds brand recall.</p>
+          </div>
+          <div class="info-block">
+            <h4>Optimized for Social</h4>
+            <p>Designed for small screens, big impact.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== HIGHLIGHTS ===== -->
+      <section class="section" id="highlights">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Story Highlight System</h2>
+            <span class="section-sub">Icon logic &amp; usage</span>
+          </div>
+        </div>
+
+        <!-- <div class="full-image" style="margin-bottom:20px">
+          <img src="assets/img/story-highlights-row.jpg" alt="Six story highlight cover circles">
+        </div> -->
+
+        <div class="full-image" style="margin-bottom:24px">
+          <img src="assets/img/story-highlight-system.png" alt="Story highlight system overview">
+        </div>
+
+        <div class="info-row" style="margin-top:0;padding-top:0;border-top:none">
+          <div class="info-block">
+            <h4>Icon Language</h4>
+            <p>Clean, minimal line icons represent each category clearly and universally.</p>
+          </div>
+          <div class="info-block">
+            <h4>Contrast Logic</h4>
+            <p>Alternating dark and light covers create rhythm, contrast, and easy scanning.</p>
+          </div>
+          <div class="info-block">
+            <h4>Recognition Boost</h4>
+            <p>Alternating covers help each icon stand out in a row, improving recognition.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== STORY TEMPLATES ===== -->
+      <section class="section" id="stories">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Story Cover Templates</h2>
+            <span class="section-sub">Tutorial · Carousel · Reel covers</span>
+          </div>
+        </div>
+
+        <div class="full-image">
+          <img src="assets/img/story-cover-templates.png" alt="Story cover templates - tutorial, tips, guide, BTS">
+        </div>
+
+        <div class="info-row">
+          <div class="info-block">
+            <h4>Clear Hierarchy</h4>
+            <p>Bold titles, subtle metadata, and intentional placement guide attention instantly.</p>
+          </div>
+          <div class="info-block">
+            <h4>Strong Recognition</h4>
+            <p>Consistent layout, typography, and tonal approach build instant brand recall.</p>
+          </div>
+          <div class="info-block">
+            <h4>Modular &amp; Flexible</h4>
+            <p>A reusable framework adapts across topics while maintaining visual unity.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CAMPAIGN ===== -->
+      <section class="section" id="campaign">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Urban Campaign</h2>
+            <span class="section-sub">Campaign ads · OOH · Print</span>
+            <p class="section-desc">A flexible campaign system made to live in the real world. Bold, minimal, and built for the modern city.</p>
+          </div>
+          <div class="section-tags">
+            <span>Clarity</span>
+            <span>Balance</span>
+            <span>Modernity</span>
+          </div>
+        </div>
+
+        <div class="campaign-grid">
+          <div class="cc-1">
+            <div class="img-frame">
+              <img src="assets/img/campaign-billboard-1.png" alt="Billboard - Technology made human">
+            </div>
+          </div>
+          <div class="cc-2">
+            <div class="img-frame">
+              <img src="assets/img/campaign-billboard-2.png" alt="Billboard - Clarity in every touchpoint">
+            </div>
+          </div>
+          <div class="cc-3">
+            <div class="img-frame">
+              <img src="assets/img/campaign-bus-1.png" alt="Bus shelter - Less noise more clarity">
+            </div>
+          </div>
+          <div class="cc-4">
+            <div class="img-frame">
+              <img src="assets/img/campaign-poster-pair.png" alt="Poster pair - Built for balance, Clarity moves forward">
+            </div>
+          </div>
+          <div class="cc-5">
+            <div class="img-frame">
+              <img src="assets/img/campaign-magazine.png" alt="Magazine - Technology made human">
+            </div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-block">
+            <h4>About the Campaign</h4>
+            <p>The campaign brings the Colta brand to life in urban environments through a system of minimal, high-impact visuals.</p>
+          </div>
+          <div class="info-block">
+            <h4>Flexibility</h4>
+            <p>Adapts across OOH, transit, print, and digital — ensuring consistency while allowing for creative flexibility.</p>
+          </div>
+          <div class="info-block">
+            <h4>Core Promise</h4>
+            <p>Each execution reinforces our core promise: clarity, balance, and modernity in everything we touch.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== MOCKUPS ===== -->
+      <section class="section" id="mockups">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Product Mockups</h2>
+            <span class="section-sub">Branded applications</span>
+            <p class="section-desc">Colta in the real world. Thoughtfully applied across products and materials to create a consistent, modern brand experience.</p>
+          </div>
+        </div>
+
+        <div class="full-image">
+          <img src="assets/img/mockups-full.jpg" alt="Branded product mockups - bottle, packaging, notebook, business cards">
+        </div>
+      </section>
+
+      <!-- ===== PACKAGING ===== -->
+      <section class="section" id="packaging">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Packaging Concept</h2>
+            <span class="section-sub">Elevate Desk Series</span>
+            <p class="section-desc">Our packaging system for the Elevate Desk is designed to protect every component with clarity and care. Crafted from premium kraft materials, it reflects Colta's commitment to quality and a sustainable unboxing experience.</p>
+          </div>
+        </div>
+
+        <div class="full-image" style="margin-bottom:20px">
+          <img src="assets/img/packaging-hero.png" alt="Elevate Desk packaging hero">
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom:20px">
+          <div class="img-card">
+            <div class="img-card-frame" style="background:var(--porcelain)">
+              <img src="assets/img/packaging-front-panel.png" alt="Front panel" style="object-fit:contain;padding:8px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">01 · Front Panel</span>
+              <p class="card-text">Primary identification with hierarchy: brand, product, function.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:var(--porcelain)">
+              <img src="assets/img/packaging-side-panel.png" alt="Side panel" style="object-fit:contain;padding:8px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">02 · Component Box / Side</span>
+              <p class="card-text">Frame and tabletop packs separated for safe transport.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:var(--porcelain)">
+              <img src="assets/img/packaging-shipping.png" alt="Shipping carton" style="object-fit:cover">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">03 · Shipping Carton</span>
+              <p class="card-text">Outer carton with handling icons and brand statement.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="img-card">
+            <div class="img-card-frame" style="background:var(--porcelain)">
+              <img src="assets/img/packaging-label-strip.png" alt="Label strip" style="object-fit:contain;padding:8px">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">04 · Label Strip</span>
+              <p class="card-text">Modular system labels for accessory, hardware, and care components.</p>
+            </div>
+          </div>
+          <div class="img-card">
+            <div class="img-card-frame" style="background:var(--porcelain)">
+              <img src="assets/img/packaging-detail.png" alt="Packaging detail" style="object-fit:cover">
+            </div>
+            <div class="img-card-body">
+              <span class="card-label">05 · Detail</span>
+              <p class="card-text">Embossed wordmark on kraft for a tactile, premium close-up moment.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="principles" style="margin-top:24px">
+          <div class="principle">
+            <h4>Materials</h4>
+            <p>Premium kraft paperboard with a natural, uncoated finish. Durable, tactile, fully recyclable.</p>
+          </div>
+          <div class="principle">
+            <h4>Modular System</h4>
+            <p>Components packed separately by function for protection, easy handling, and efficient assembly.</p>
+          </div>
+          <div class="principle">
+            <h4>Sustainability</h4>
+            <p>Made with 100% recyclable materials and eco-friendly inks. Designed to minimize waste.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== APPAREL ===== -->
+      <section class="section" id="apparel">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Apparel</h2>
+            <span class="section-sub">Wear the standard</span>
+            <p class="section-desc">Colta apparel is designed for clarity, comfort, and everyday versatility. Timeless pieces made to move with intent.</p>
+          </div>
+          <div class="section-tags">
+            <span>Clarity</span>
+            <span>Balance</span>
+            <span>Modernity</span>
+          </div>
+        </div>
+
+        <div class="apparel-grid">
+          <div class="ap-tall">
+            <div class="img-frame" style="height:100%;min-height:480px">
+              <img src="assets/img/apparel-tshirt-full.png" alt="Tee full body" style="height:100%;width:100%;object-fit:cover">
+            </div>
+          </div>
+          <div class="ap-half">
+            <div class="img-frame">
+              <img src="assets/img/apparel-hoodie-back.png" alt="Hoodie back logo">
+            </div>
+          </div>
+          <div class="ap-full">
+            <div class="img-frame">
+              <img src="assets/img/apparel-cap.png" alt="Cap">
+            </div>
+          </div>
+          <div class="ap-half">
+            <div class="img-frame">
+              <img src="assets/img/apparel-crewneck.png" alt="Cream crewneck">
+            </div>
+          </div>
+          <div class="ap-tall">
+            <div class="img-frame" style="height:100%;min-height:480px">
+              <img src="assets/img/apparel-girl-tote.png" alt="Girl with tote bag" style="height:100%;width:100%;object-fit:cover">
+            </div>
+          </div>
+          <div class="ap-half">
+            <div class="img-frame">
+              <img src="assets/img/apparel-jacket.png" alt="Forest green jacket">
+            </div>
+          </div>
+          <div class="ap-half">
+            <div class="img-frame">
+              <img src="assets/img/apparel-tote.png" alt="Natural tote">
+            </div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-block">
+            <h4>Functional Pieces</h4>
+            <p>Functional pieces for modern life. Designed with purpose. Made to last.</p>
+          </div>
+          <div class="info-block">
+            <h4>Structured Staples</h4>
+            <p>Subtle branding. Maximum impact. Wear-anywhere essentials in a refined silhouette.</p>
+          </div>
+          <div class="info-block">
+            <h4>Wear the Standard</h4>
+            <p>Timeless pieces made to move with intent — across seasons, settings, and occasions.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== APP UI ===== -->
+      <section class="section" id="app">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">App UI/UX Preview</h2>
+            <span class="section-sub">Digital experience</span>
+            <p class="section-desc">Colta's digital experience reflects our brand values — clarity, balance, and modernity through a refined and intentional interface.</p>
+          </div>
+        </div>
+
+        <div class="app-grid">
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-home.png" alt="App Home screen"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">01 · Home</div>
+              <div class="app-mockup-desc">A clean, focused home experience with brand messaging and navigation that puts products first.</div>
+            </div>
+          </div>
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-discover.png" alt="App Discover"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">02 · Discover</div>
+              <div class="app-mockup-desc">Browse by category or search with ease. A simplified grid highlights product forms with space and precision.</div>
+            </div>
+          </div>
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-product.png" alt="App Product Detail"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">03 · Product Detail</div>
+              <div class="app-mockup-desc">Product pages emphasize clarity and trust with clean imagery, essential details, and intuitive actions.</div>
+            </div>
+          </div>
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-cart.png" alt="App Cart"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">04 · Cart</div>
+              <div class="app-mockup-desc">A streamlined cart experience with clear item hierarchy, transparent pricing, and seamless checkout.</div>
+            </div>
+          </div>
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-saved.png" alt="App Saved"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">05 · Saved</div>
+              <div class="app-mockup-desc">Save and revisit favorites with ease. A personal space for the products that matter most.</div>
+            </div>
+          </div>
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-profile.png" alt="App Profile"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">06 · Profile</div>
+              <div class="app-mockup-desc">A clean profile hub that makes account management simple, secure, and consistent with the brand.</div>
+            </div>
+          </div>
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-campaign.png" alt="App Campaign"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">07 · Campaign</div>
+              <div class="app-mockup-desc">Campaign and collection stories presented with impactful visuals and concise messaging.</div>
+            </div>
+          </div>
+          <div class="app-mockup">
+            <div class="app-mockup-frame"><img src="assets/img/app-search.png" alt="App Search"></div>
+            <div class="app-mockup-body">
+              <div class="app-mockup-num">08 · Search</div>
+              <div class="app-mockup-desc">Intelligent search with suggestions and categories to help users find what they need, faster.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== FOOTER ===== -->
+      <footer class="footer">
+        <span>Colta Brand Kit · 01</span>
+        <span>Work comfortably starts here.</span>
+        <span>Surabaya · ID</span>
+      </footer>
+    </div>
+  </main>
+
+  <div class="overlay" id="overlay"></div>
+</div>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const main = document.getElementById('main');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const overlay = document.getElementById('overlay');
+
+  function setInitial(){
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove('open');
+      sidebar.classList.add('collapsed');
+      main.classList.add('expanded');
+    } else {
+      sidebar.classList.remove('collapsed');
+      main.classList.remove('expanded');
+    }
+  }
+  setInitial();
+
+  toggleBtn.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      const isOpen = sidebar.classList.contains('open');
+      if (isOpen) {
+        sidebar.classList.remove('open');
+        sidebar.classList.add('collapsed');
+        overlay.classList.remove('active');
+      } else {
+        sidebar.classList.add('open');
+        sidebar.classList.remove('collapsed');
+        overlay.classList.add('active');
+      }
+    } else {
+      sidebar.classList.toggle('collapsed');
+      main.classList.toggle('expanded');
+    }
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    sidebar.classList.add('collapsed');
+    overlay.classList.remove('active');
+  });
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = item.getAttribute('data-target');
+      const el = document.getElementById(target);
+      if (el) {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove('open');
+          sidebar.classList.add('collapsed');
+          overlay.classList.remove('active');
+        }
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  function onScroll(){
+    let current = '';
+    const offset = 120;
+    sections.forEach(s => {
+      const top = s.getBoundingClientRect().top;
+      if (top - offset <= 0) current = s.id;
+    });
+    if (current) {
+      navItems.forEach(n => {
+        n.classList.toggle('active', n.getAttribute('data-target') === current);
+      });
+    }
+  }
+  window.addEventListener('scroll', onScroll);
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      overlay.classList.remove('active');
+      sidebar.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>

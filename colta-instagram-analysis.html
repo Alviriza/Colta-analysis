@@ -1,0 +1,3051 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Colta.id — Analisis Instagram 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #fafafa;
+    --bg-muted: #f5f5f5;
+    --surface: #ffffff;
+    --border: #e8e8e8;
+    --border-strong: #d4d4d4;
+    --ink: #0a0a0a;
+    --ink-2: #2a2a2a;
+    --muted: #6b6b6b;
+    --muted-2: #999999;
+    --accent: #0a0a0a;
+    --accent-soft: rgba(0,0,0,0.04);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+    --sidebar-w: 260px;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 99;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+  .sidebar-overlay.active { display: block; }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    z-index: 100;
+    overflow-y: auto;
+    padding: 28px 20px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+  .sidebar.hidden { transform: translateX(-100%); }
+
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+    padding: 0 4px;
+  }
+  .sidebar-logo {
+    width: 36px;
+    height: 36px;
+    background: var(--ink);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+  }
+  .sidebar-brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-brand-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+  .sidebar-brand-sub {
+    font-size: 10px;
+    color: var(--muted-2);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .sidebar-external {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 18px 0;
+    padding: 10px 12px;
+    background: var(--bg-soft);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+  }
+  .sidebar-external:hover {
+    background: var(--bg-muted);
+    color: var(--ink);
+  }
+
+  .nav-group {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    margin: 20px 0 8px 8px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.15s;
+    margin-bottom: 2px;
+    cursor: pointer;
+  }
+  .nav-link:hover {
+    background: var(--bg-soft);
+    color: var(--ink);
+  }
+  .nav-link.active {
+    background: var(--ink);
+    color: white;
+  }
+  .nav-link .icon {
+    font-size: 14px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--muted-2);
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ============ TOGGLE BUTTON ============ */
+  .sidebar-toggle {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 101;
+    width: 40px;
+    height: 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.25s;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .sidebar-toggle:hover { box-shadow: var(--shadow-md); }
+  .sidebar-toggle .bar {
+    width: 18px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  body.sidebar-open .sidebar-toggle {
+    left: calc(var(--sidebar-w) + 14px);
+  }
+  body.sidebar-open .sidebar-toggle .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  body.sidebar-open .sidebar-toggle .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  body.sidebar-open .sidebar-toggle .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ============ MAIN ============ */
+  .main {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--bg);
+  }
+  .main.expanded { margin-left: 0; }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 80px 64px 60px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    background: var(--surface);
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--ink);
+    border-radius: 50%;
+  }
+
+  .hero-logo {
+    width: 64px;
+    height: 64px;
+    background: var(--ink);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 32px;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 5.5vw, 64px);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .hero-tagline {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 720px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: 0.2px;
+  }
+  .chip.dark {
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+  }
+
+  /* ============ SECTION ============ */
+  .section {
+    padding: 64px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-of-type { border-bottom: none; }
+  .section.alt { background: var(--bg-soft); }
+
+  .section-head {
+    margin-bottom: 36px;
+  }
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted-2);
+    font-weight: 500;
+  }
+  .section-lbl {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-title {
+    font-size: clamp(26px, 3.2vw, 40px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.2px;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .section-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 720px;
+    line-height: 1.7;
+  }
+
+  /* ============ INDEX CARDS ============ */
+  .index-group-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .index-group-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .index-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    display: block;
+  }
+  .index-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+  }
+  .index-card-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted-2);
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  .index-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+  }
+  .index-card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .index-card-arrow {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 28px;
+    height: 28px;
+    background: var(--bg-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--muted-2);
+    transition: all 0.2s;
+  }
+  .index-card:hover .index-card-arrow {
+    background: var(--ink);
+    color: white;
+    transform: rotate(-45deg);
+  }
+  .index-card.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ============ GENERIC CARDS ============ */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow-md); }
+  .card-accent {
+    width: 24px;
+    height: 3px;
+    background: var(--ink);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--bg-soft);
+    color: var(--muted);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+  }
+  .card h3 em { font-style: italic; font-weight: 400; color: var(--muted); }
+  .card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .card p strong { color: var(--ink-2); font-weight: 600; }
+  .card ul {
+    margin-top: 12px;
+    padding-left: 18px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .card-dark {
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+  }
+  .card-dark .card-accent { background: rgba(255,255,255,0.6); }
+  .card-dark h3 { color: white; }
+  .card-dark p { color: rgba(255,255,255,0.7); }
+  .card-dark .card-tag {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.12);
+  }
+  .card-dark ul { color: rgba(255,255,255,0.7); }
+  .card-dark p strong { color: white; }
+
+  /* ============ STAT BOX ============ */
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: left;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s;
+  }
+  .stat-box:hover { box-shadow: var(--shadow-md); }
+  .stat-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -1.8px;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    line-height: 1.4;
+  }
+  .stat-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: var(--font-mono);
+  }
+
+  /* ============ TABLE ============ */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 640px;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 14px 18px;
+    background: var(--bg-soft);
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    vertical-align: top;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--bg-soft); }
+  .data-table tr.highlight td {
+    background: var(--bg-muted);
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .data-table td strong { color: var(--ink); font-weight: 700; }
+
+  /* ============ BADGE ============ */
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--muted);
+  }
+  .badge-dark { background: var(--ink); color: white; border-color: var(--ink); }
+  .badge-green { background: #e6f5ee; color: #1a7a45; border-color: #9fdabb; }
+  .badge-red { background: #fdf0f0; color: #c0392b; border-color: #f5b3b3; }
+  .badge-amber { background: #f5f0e0; color: #8a6900; border-color: #e8d990; }
+
+  /* ============ PROGRESS BAR ============ */
+  .bar-row { margin-bottom: 16px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .bar-label {
+    font-size: 13px;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .bar-val {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .bar-track {
+    height: 6px;
+    background: var(--bg-muted);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--ink);
+    border-radius: 100px;
+    transition: width 1s ease;
+  }
+
+  /* ============ PERSONA ============ */
+  .persona {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .persona-head {
+    background: var(--ink);
+    color: white;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .persona-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .persona-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2px;
+  }
+  .persona-role {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--font-mono);
+  }
+  .persona-body { padding: 20px 22px; }
+  .persona-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .persona-pill {
+    font-size: 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 100px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .persona-pain {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .persona-pain strong { color: var(--ink-2); font-weight: 600; }
+
+  /* ============ SWOT ============ */
+  .swot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .swot-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+  .swot-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .swot-header::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .swot-list {
+    list-style: none;
+  }
+  .swot-list li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 8px;
+    line-height: 1.55;
+  }
+  .swot-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--muted-2);
+  }
+
+  /* ============ QUOTE / CALLOUT ============ */
+  .callout {
+    background: var(--ink);
+    color: white;
+    padding: 36px 40px;
+    border-radius: var(--radius-xl);
+    margin-top: 28px;
+    box-shadow: var(--shadow-lg);
+  }
+  .callout blockquote {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+    border-left: 3px solid rgba(255,255,255,0.3);
+    padding-left: 22px;
+    max-width: 760px;
+  }
+  .callout blockquote em {
+    color: white;
+    font-style: normal;
+    font-weight: 700;
+  }
+  .callout-source {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 18px;
+    padding-left: 25px;
+  }
+
+  .note-box {
+    background: var(--bg-soft);
+    border-left: 3px solid var(--ink);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    margin-top: 16px;
+  }
+  .note-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .note-box p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot {
+    position: absolute;
+    left: -25px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--ink);
+  }
+  .tl-phase {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted-2);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .tl-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .tl-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .tl-desc strong { color: var(--ink-2); font-weight: 600; }
+
+  /* ============ PILLAR DONUT ============ */
+  .pillar-wrap {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .pillar-donut {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: conic-gradient(
+      #0a0a0a 0% 38%,
+      #4a4a4a 38% 64%,
+      #888888 64% 82%,
+      #c8c8c8 82% 100%
+    );
+    position: relative;
+    margin: 0 auto;
+    box-shadow: var(--shadow-md);
+  }
+  .pillar-donut::after {
+    content: '';
+    position: absolute;
+    inset: 56px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  .pillar-center {
+    position: absolute;
+    inset: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    text-align: center;
+  }
+  .pillar-center .v {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+  .pillar-center .l {
+    font-size: 9px;
+    color: var(--muted-2);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .pillar-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pillar-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+  .pillar-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .pillar-item h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .pillar-item h4 span {
+    font-family: var(--font-mono);
+    color: var(--muted-2);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .pillar-item p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ============ HEATMAP ============ */
+  .heatmap-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+  .heatmap {
+    width: 100%;
+    min-width: 540px;
+    border-collapse: separate;
+    border-spacing: 4px;
+  }
+  .heatmap th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted-2);
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 6px;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  .heatmap td:first-child {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted-2);
+    padding: 4px 10px 4px 4px;
+    text-align: left;
+    width: 60px;
+  }
+  .heatmap .hm {
+    aspect-ratio: 1.6;
+    border-radius: 6px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 6px 2px;
+    font-weight: 500;
+  }
+  .hm-0 { background: var(--bg-muted); color: var(--muted-2); }
+  .hm-1 { background: #d4d4d4; color: var(--ink-2); }
+  .hm-2 { background: #888888; color: white; }
+  .hm-3 { background: #444444; color: white; }
+  .hm-4 { background: var(--ink); color: white; }
+  .heatmap-legend {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .heatmap-legend .lg-box {
+    width: 16px;
+    height: 12px;
+    border-radius: 3px;
+  }
+
+  /* ============ TAG CLOUD ============ */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .tag-cloud .tag {
+    font-size: 11px;
+    padding: 6px 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .tag-cloud .tag.hot {
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+  }
+  .tag-cloud .tag.warm {
+    background: var(--bg-muted);
+    color: var(--ink-2);
+    border-color: var(--border-strong);
+    font-weight: 600;
+  }
+
+  /* ============ CAPTION FORMULA ============ */
+  .formula-box {
+    background: var(--ink);
+    color: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    box-shadow: var(--shadow-md);
+  }
+  .formula-line {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .formula-line:last-child { border-bottom: none; }
+  .formula-tag {
+    color: rgba(255,255,255,0.4);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .formula-text { color: rgba(255,255,255,0.9); }
+
+  /* ============ IG GRID MOCKUP ============ */
+  .ig-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: var(--ink);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  .ig-tile {
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 14px;
+    overflow: hidden;
+    color: white;
+  }
+  .ig-tile.t1 { background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 100%); }
+  .ig-tile.t2 { background: #f5f5f5; color: var(--ink); }
+  .ig-tile.t3 { background: linear-gradient(135deg, #444 0%, #222 100%); }
+  .ig-tile.t4 { background: var(--ink); }
+  .ig-tile.t5 { background: #e8e8e8; color: var(--ink); }
+  .ig-tile.t6 { background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%); }
+  .ig-tile.t7 { background: #2a2a2a; }
+  .ig-tile.t8 { background: #f5f5f5; color: var(--ink); }
+  .ig-tile.t9 { background: var(--ink); }
+  .ig-tile-tag {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    font-weight: 600;
+  }
+  .ig-tile.t2 .ig-tile-tag,
+  .ig-tile.t5 .ig-tile-tag,
+  .ig-tile.t8 .ig-tile-tag {
+    color: var(--muted-2);
+  }
+  .ig-tile h4 {
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+  .ig-tile h4 em {
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0.6;
+  }
+  .ig-tile p {
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-weight: 600;
+  }
+
+  /* ============ IG PROFILE MOCKUP ============ */
+  .ig-profile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+  }
+  .ig-profile-head {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .ig-profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px white, 0 0 0 5px var(--ink);
+  }
+  .ig-profile-info { flex: 1; min-width: 240px; }
+  .ig-profile-username {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .ig-profile-stats {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .ig-profile-stat {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .ig-profile-stat b {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .ig-profile-bio {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .ig-profile-bio b { color: var(--ink); font-weight: 700; }
+  .ig-profile-link {
+    color: var(--ink-2);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  /* ============ KOL TIER ============ */
+  .kol-tier {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .kol-head {
+    background: var(--ink);
+    color: white;
+    padding: 18px 22px;
+  }
+  .kol-head h4 {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .kol-range {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.5px;
+  }
+  .kol-body {
+    padding: 20px 22px;
+  }
+  .kol-body p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .kol-spec {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    gap: 8px;
+  }
+  .kol-spec:last-child { border-bottom: none; }
+  .kol-spec .l {
+    color: var(--muted-2);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .kol-spec .v {
+    color: var(--ink-2);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* ============ ICON BOX ============ */
+  .icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  /* ============ BREADCRUMB ============ */
+  .breadcrumb {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    padding: 14px 64px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255,255,255,0.85);
+  }
+  .breadcrumb a { color: var(--muted-2); cursor: pointer; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb .sep { color: var(--border-strong); }
+  .breadcrumb .current { color: var(--ink); }
+
+  /* ============ BACK TO TOP ============ */
+  .back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    background: var(--ink);
+    color: white;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    z-index: 50;
+    transition: all 0.2s;
+  }
+  .back-to-top.visible { display: flex; }
+  .back-to-top:hover { transform: translateY(-2px); }
+
+  /* ============ PAGE SYSTEM ============ */
+  .page { display: none; }
+  .page.active {
+    display: block;
+    animation: fadeIn 0.25s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1100px) {
+    .index-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .pillar-wrap { grid-template-columns: 1fr; }
+    .hero { padding: 64px 40px 50px; }
+    .section { padding: 50px 40px; }
+    .breadcrumb { padding: 12px 40px; }
+  }
+
+  @media (max-width: 768px) {
+    :root { --sidebar-w: 280px; }
+    .main { margin-left: 0 !important; }
+    .sidebar {
+      transform: translateX(-100%);
+      box-shadow: var(--shadow-lg);
+    }
+    .sidebar.mobile-open {
+      transform: translateX(0);
+    }
+    body.sidebar-open .sidebar-toggle {
+      left: 18px !important;
+    }
+    .hero { padding: 70px 22px 40px; }
+    .section { padding: 40px 22px; }
+    .breadcrumb { padding: 12px 22px 12px 70px; }
+    .grid-2, .grid-3, .grid-4, .index-grid, .swot-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero h1 { font-size: 36px; letter-spacing: -1.2px; }
+    .section-title { font-size: 26px; }
+    .stat-num { font-size: 28px; }
+    .callout { padding: 28px; }
+    .callout blockquote { font-size: 16px; padding-left: 18px; }
+    .ig-grid { grid-template-columns: repeat(3, 1fr); padding: 10px; gap: 5px; }
+    .ig-tile { padding: 8px; }
+    .ig-tile h4 { font-size: 10px; }
+    .ig-tile p { font-size: 7px; }
+    .ig-tile-tag { font-size: 7px; top: 6px; left: 7px; }
+    .ig-profile { padding: 22px; }
+    .ig-profile-avatar { width: 72px; height: 72px; font-size: 28px; }
+    .pillar-donut { width: 200px; height: 200px; }
+    .pillar-donut::after { inset: 48px; }
+    .pillar-center { inset: 48px; }
+    .pillar-center .v { font-size: 24px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 30px; }
+    .hero-tagline { font-size: 15px; }
+    .section-title { font-size: 22px; }
+    .stat-num { font-size: 26px; }
+    .index-card { padding: 20px; }
+    .card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SIDEBAR OVERLAY ============ -->
+<div class="sidebar-overlay" id="overlay"></div>
+
+<!-- ============ SIDEBAR TOGGLE ============ -->
+<button class="sidebar-toggle" id="toggleBtn" aria-label="Toggle sidebar">
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</button>
+
+<!-- ============ SIDEBAR ============ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo">c</div>
+    <div class="sidebar-brand-text">
+      <div class="sidebar-brand-name">Colta Analytics</div>
+      <div class="sidebar-brand-sub">Instagram 2026</div>
+    </div>
+  </div>
+
+  <a href="https://www.instagram.com/colta.id/" target="_blank" class="sidebar-external">
+    🌐 instagram.com/colta.id
+  </a>
+
+  <div class="nav-group">Audit</div>
+  <a class="nav-link active" data-page="overview"><span class="icon">🏠</span><span>Overview</span></a>
+  <a class="nav-link" data-page="snapshot"><span class="icon">📊</span><span>Snapshot Akun</span></a>
+  <a class="nav-link" data-page="identity"><span class="icon">🎨</span><span>Identitas Visual</span></a>
+  <a class="nav-link" data-page="performance"><span class="icon">📈</span><span>Performa Konten</span></a>
+
+  <div class="nav-group">Konten</div>
+  <a class="nav-link" data-page="pillars"><span class="icon">🧱</span><span>Content Pillars</span></a>
+  <a class="nav-link" data-page="feed"><span class="icon">🖼</span><span>Anatomi Feed</span></a>
+  <a class="nav-link" data-page="format"><span class="icon">🎬</span><span>Format Mix</span></a>
+
+  <div class="nav-group">Audiens</div>
+  <a class="nav-link" data-page="persona"><span class="icon">👥</span><span>Persona</span></a>
+  <a class="nav-link" data-page="timing"><span class="icon">⏰</span><span>Heatmap Posting</span></a>
+  <a class="nav-link" data-page="hashtag"><span class="icon">#️⃣</span><span>Hashtag &amp; Caption</span></a>
+
+  <div class="nav-group">Strategi</div>
+  <a class="nav-link" data-page="competitor"><span class="icon">⚔️</span><span>Kompetitor</span></a>
+  <a class="nav-link" data-page="swot"><span class="icon">🎯</span><span>SWOT Instagram</span></a>
+  <a class="nav-link" data-page="kol"><span class="icon">🤝</span><span>Creator Collab</span></a>
+  <a class="nav-link" data-page="roadmap"><span class="icon">🚀</span><span>Roadmap 12 Bulan</span></a>
+
+  <div class="sidebar-footer">Claude × Colta 2026</div>
+</nav>
+
+<!-- ============ MAIN ============ -->
+<main class="main" id="main">
+
+  <!-- ====== PAGE: OVERVIEW ====== -->
+  <div class="page active" id="page-overview">
+    <section class="hero">
+      <div class="hero-eyebrow">Instagram Deep-Dive · Mei 2026</div>
+      <div class="hero-logo">c</div>
+      <h1>Colta.id<br><em>Instagram Analytics</em></h1>
+      <p class="hero-tagline">Audit menyeluruh atas akun Instagram @colta.id — snapshot performa, identitas visual, content pillars, audiens, hingga roadmap scaling 12 bulan ke depan. Disusun untuk eksekusi strategis brand workspace premium asal Indonesia.</p>
+      <div class="hero-chips">
+        <span class="chip dark">14K+ Followers</span>
+        <span class="chip">1,119 Posts</span>
+        <span class="chip">0 Following</span>
+        <span class="chip">#WorkComfortably</span>
+        <span class="chip">Bilingual ID/EN</span>
+        <span class="chip">Cross-platform</span>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="index-group-title">Audit</div>
+      <div class="index-grid">
+        <a class="index-card" data-nav="snapshot">
+          <div class="index-card-num">01</div>
+          <div class="index-card-title">Snapshot Akun</div>
+          <div class="index-card-desc">Health check profile — followers, posts, ratio, bio, dan indikator awal yang menunjukkan ruang optimasi.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="identity">
+          <div class="index-card-num">02</div>
+          <div class="index-card-title">Identitas Visual</div>
+          <div class="index-card-desc">Audit color palette, photography style, typography, dan tone of voice yang sudah terbentuk di feed.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="performance">
+          <div class="index-card-num">03</div>
+          <div class="index-card-title">Performa Konten</div>
+          <div class="index-card-desc">Estimasi share of voice vs engagement rate per format konten — di mana volume tidak selalu sama dengan hasil.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+      </div>
+
+      <div class="index-group-title">Konten</div>
+      <div class="index-grid">
+        <a class="index-card" data-nav="pillars">
+          <div class="index-card-num">04</div>
+          <div class="index-card-title">Content Pillars</div>
+          <div class="index-card-desc">Framework 4-pilar konten (Educate, Inspire, Convert, Engage) — kondisi saat ini vs distribusi ideal.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="feed">
+          <div class="index-card-num">05</div>
+          <div class="index-card-title">Anatomi Feed</div>
+          <div class="index-card-desc">Konsep 9-grid checkerboard, aturan 60-30-10, tile typography, dan slot conversion anchor.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="format">
+          <div class="index-card-num">06</div>
+          <div class="index-card-title">Format Mix</div>
+          <div class="index-card-desc">Distribusi Reels, Carousel, Single Image, dan Story — mana yang harus diperbesar slot-nya untuk maksimasi reach.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+      </div>
+
+      <div class="index-group-title">Audiens</div>
+      <div class="index-grid">
+        <a class="index-card" data-nav="persona">
+          <div class="index-card-num">07</div>
+          <div class="index-card-title">Persona Audiens</div>
+          <div class="index-card-desc">Tiga segmen utama follower Colta — Aesthete, Pragmatist, Procurer — dengan trigger yang sangat berbeda.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="timing">
+          <div class="index-card-num">08</div>
+          <div class="index-card-title">Heatmap Posting</div>
+          <div class="index-card-desc">Pemetaan engagement audiens workspace per hari × jam sepanjang minggu untuk reach maksimal.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="hashtag">
+          <div class="index-card-num">09</div>
+          <div class="index-card-title">Hashtag &amp; Caption</div>
+          <div class="index-card-desc">Hashtag map 3-tier (prioritas, brand, long-tail) dan formula caption 5-baris yang menarik save &amp; share.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+      </div>
+
+      <div class="index-group-title">Strategi</div>
+      <div class="index-grid">
+        <a class="index-card" data-nav="competitor">
+          <div class="index-card-num">10</div>
+          <div class="index-card-title">Lanskap Kompetitor</div>
+          <div class="index-card-desc">Posisi Colta di tengah MOFT, Satechi, UGREEN, Sonderlab — di mana menang, di mana harus belajar.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="swot">
+          <div class="index-card-num">11</div>
+          <div class="index-card-title">SWOT Instagram</div>
+          <div class="index-card-desc">SWOT khusus IG — aset, kelemahan, peluang, ancaman dalam ekosistem Instagram 2026.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <a class="index-card" data-nav="kol">
+          <div class="index-card-num">12</div>
+          <div class="index-card-title">Creator Collab</div>
+          <div class="index-card-desc">Blueprint partnership nano/micro/macro creator — fee benchmark, deliverable, target seeding/bulan.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+      </div>
+
+      <div class="index-grid" style="margin-top:14px;">
+        <a class="index-card" data-nav="roadmap" style="grid-column: span 2;">
+          <div class="index-card-num">13</div>
+          <div class="index-card-title">Roadmap 12 Bulan</div>
+          <div class="index-card-desc">Eksekusi terstruktur per kuartal — dari Foundation, Creator Push, Paid Amplification, hingga Scale. Target: 14K → 50K+ followers, ER ≥4%, kontribusi revenue 40%.</div>
+          <div class="index-card-arrow">↗</div>
+        </a>
+        <div class="index-card disabled">
+          <div class="index-card-num">—</div>
+          <div class="index-card-title">Iterasi Berikutnya</div>
+          <div class="index-card-desc">Cross-platform audit (TikTok &amp; YouTube), analytics dashboard live, post-by-post deep dive untuk top 50 konten.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: SNAPSHOT ====== -->
+  <div class="page" id="page-snapshot">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Audit</span><span class="sep">›</span>
+      <span class="current">Snapshot Akun</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">01</span>
+          <span class="section-lbl">Audit</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Snapshot <em>Akun</em> @colta.id</h1>
+        <p class="section-desc">Health check awal untuk memahami posisi akun hari ini. Colta sudah memiliki fondasi solid — 14K followers organik dan 1,119 postingan — namun ada beberapa indikator yang menunjukkan ruang optimasi besar.</p>
+      </div>
+
+      <div class="ig-profile" style="margin-bottom:24px;">
+        <div class="ig-profile-head">
+          <div class="ig-profile-avatar">c</div>
+          <div class="ig-profile-info">
+            <div class="ig-profile-username">colta.id</div>
+            <div class="ig-profile-stats">
+              <div class="ig-profile-stat"><b>1,119</b> posts</div>
+              <div class="ig-profile-stat"><b>14K</b> followers</div>
+              <div class="ig-profile-stat"><b>0</b> following</div>
+            </div>
+            <div class="ig-profile-bio">
+              <b>Colta</b><br>
+              #WorkComfortably — your workspace essentials.<br>
+              <a href="https://colta.id" class="ig-profile-link">colta.id</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:28px;">
+        <div class="stat-box">
+          <div class="stat-num">14K+</div>
+          <div class="stat-label">Followers Organik</div>
+          <div class="stat-sub">↑ konsisten</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1,119</div>
+          <div class="stat-label">Total Postingan</div>
+          <div class="stat-sub">Disiplin tinggi</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Following</div>
+          <div class="stat-sub">Strategis</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1:12.5</div>
+          <div class="stat-label">Post : Follower Ratio</div>
+          <div class="stat-sub">vs benchmark 1:50+</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Catatan Positif</span>
+          <h3>Disiplin <em>posting</em> yang langka</h3>
+          <p>Dengan 1,119 postingan, Colta menunjukkan komitmen konten jangka panjang — bukti bahwa tim aktif dan terorganisir. Ini adalah aset besar untuk brand aksesori meja kerja yang membutuhkan trust building.</p>
+          <ul>
+            <li>Akun terbaca sebagai brand serius (bukan dropshipper musiman)</li>
+            <li>Konten bank luas untuk repurposing ke Reels/Story</li>
+            <li>SEO Instagram naik karena posting frequency</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Catatan Kritis</span>
+          <h3>Volume tinggi, <em>engagement</em> belum proporsional</h3>
+          <p>Rasio 1 post per 12.5 followers (vs benchmark sehat 1:50+) mengindikasikan banyak postingan belum bekerja maksimal. Indikator kuat bahwa <strong>masalah ada di kualitas, distribusi, atau format</strong> — bukan kuantitas.</p>
+          <ul>
+            <li>Following 0 = tidak bisa engage komunitas organik</li>
+            <li>Bio masih bisa dioptimasi dengan CTA &amp; link multi-product</li>
+            <li>Story Highlights belum dimanfaatkan sebagai etalase</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Audit Bio &amp; Profile</h3>
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="card">
+          <span class="card-tag">Username</span>
+          <h3>@colta.id</h3>
+          <p>Domain-style username — pendek, brandable, mudah diingat. Sudah konsisten dengan domain colta.id. <strong>✅ Sangat baik.</strong></p>
+        </div>
+        <div class="card">
+          <span class="card-tag">Display Name</span>
+          <h3>"Colta"</h3>
+          <p>Bersih dan minimalis. Bisa diperkuat dengan keyword pencarian (mis. "Colta · Workspace Stand") untuk boost SEO Instagram.</p>
+        </div>
+        <div class="card">
+          <span class="card-tag">Bio Copy</span>
+          <h3>#WorkComfortably</h3>
+          <p>Tagline kuat &amp; ownable. Namun kurang CTA jelas — belum mengarahkan visitor ke marketplace atau katalog produk spesifik.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Colta sudah <em>cukup besar</em> untuk dianggap brand serius — tapi belum <em>cukup viral</em> untuk dominasi kategori. Yang membatasi bukan ide, melainkan distribusi dan konsistensi format.</blockquote>
+        <div class="callout-source">Insight #1 · Profile Health Check</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: IDENTITY ====== -->
+  <div class="page" id="page-identity">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Audit</span><span class="sep">›</span>
+      <span class="current">Identitas Visual</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">02</span>
+          <span class="section-lbl">Audit</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Identitas <em>Visual</em></h1>
+        <p class="section-desc">Colta mengusung estetika minimalis-premium dengan dominasi warna gelap, material aluminium sebagai hero, dan latar netral. Kekuatan utamanya adalah konsistensi mood — kelemahannya adalah varian yang terlalu seragam sehingga sulit di-stop saat scrolling.</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:28px;">
+        <div class="card" style="text-align:center;">
+          <div class="icon-box" style="margin:0 auto 14px;">🎨</div>
+          <h3 style="font-size:14px;">Color Palette</h3>
+          <p style="font-size:12px;">Dominasi hitam matte, abu metalik, netral hangat. Konsisten tapi monoton.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="icon-box" style="margin:0 auto 14px;">📷</div>
+          <h3 style="font-size:14px;">Photography</h3>
+          <p style="font-size:12px;">Product-on-desk focused. Aman &amp; on-brand, tapi minim storytelling lifestyle.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="icon-box" style="margin:0 auto 14px;">🔤</div>
+          <h3 style="font-size:14px;">Typography</h3>
+          <p style="font-size:12px;">Clean sans-serif standard. Belum punya signature font yang memorable.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="icon-box" style="margin:0 auto 14px;">🗣</div>
+          <h3 style="font-size:14px;">Tone of Voice</h3>
+          <p style="font-size:12px;">Informatif &amp; elegan. Kurang playful untuk menyentuh Gen Z &amp; creator.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Audit Per Elemen</h3>
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Color Strategy</span>
+          <h3>Monokromatik berisiko "tertelan" feed</h3>
+          <p>Palet hitam-abu-putih memberi kesan premium, tapi di feed Instagram yang penuh warna, slot Colta sering tidak menonjol. Rekomendasi: tambahkan <strong>1 accent color brand-specific</strong> di 2 dari 9 tile untuk scroll-stopper.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Photography Style</span>
+          <h3>Hero shot dominan, lifestyle minim</h3>
+          <p>Hampir semua foto menampilkan produk di atas meja kerja minimalis. Tambahkan foto kontekstual: tangan menggunakan stand, sudut wide setup, BTS pabrik — semua dengan mood treatment yang sama.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Typography</span>
+          <h3>Tipografi caption rapi, tile-text minim</h3>
+          <p>Caption sudah baik, tapi tile-text (overlay typography di foto) belum dimanfaatkan. Padahal tile typography adalah jenis post yang paling sering di-save audiens — sinyal positif kuat untuk algoritma Reels.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Tone of Voice</span>
+          <h3>Premium namun perlu sisi human</h3>
+          <p>Bahasa Colta saat ini sopan, fokus pada benefit produk. Untuk audiens muda Indonesia, perlu disisipi <strong>relatability</strong> — bahasa ringan, pertanyaan terbuka di caption, dan story dari sudut pandang user.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Skor Konsistensi Visual</h3>
+      <div class="card">
+        <div class="bar-row">
+          <div class="bar-head"><span class="bar-label">Konsistensi Color Palette</span><span class="bar-val">88%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-head"><span class="bar-label">Konsistensi Photography Style</span><span class="bar-val">82%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-head"><span class="bar-label">Konsistensi Tone of Voice</span><span class="bar-val">71%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:71%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-head"><span class="bar-label">Diferensiasi Visual vs Kompetitor</span><span class="bar-val">52%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:52%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-head"><span class="bar-label">Memorability (Brand Recall)</span><span class="bar-val">48%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:48%"></div></div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Visual Colta sudah <em>premium</em> — tapi belum cukup <em>memorable</em>. Estetika minimalis sering tertelan scroll feed; butuh signature element yang langsung dikenali sebagai Colta dalam satu tap.</blockquote>
+        <div class="callout-source">Rekomendasi · Visual DNA</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: PERFORMANCE ====== -->
+  <div class="page" id="page-performance">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Audit</span><span class="sep">›</span>
+      <span class="current">Performa Konten</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">03</span>
+          <span class="section-lbl">Audit</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Performa <em>Konten</em> per Format</h1>
+        <p class="section-desc">Berdasarkan pola umum brand workspace di Instagram 2026 dan struktur konten Colta, berikut estimasi distribusi performa per format — di mana setiap jenis memberikan kontribusi berbeda terhadap awareness, engagement, dan konversi.</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="card">
+          <span class="card-tag">Share of Voice</span>
+          <h3 style="margin-bottom:18px;">Distribusi format konten saat ini</h3>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Reels — Product Demo</span><span class="bar-val">38%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:38%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Carousel — Edukasi</span><span class="bar-val">22%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:22%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Single Image — Hero</span><span class="bar-val">18%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:18%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Reels — Lifestyle/UGC</span><span class="bar-val">12%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:12%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Carousel — Lookbook</span><span class="bar-val">7%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:7%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Story Highlights</span><span class="bar-val">3%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:3%"></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <span class="card-tag">Engagement Rate</span>
+          <h3 style="margin-bottom:18px;">Estimasi ER per format</h3>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Reels — Lifestyle/UGC</span><span class="bar-val">8.4%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:84%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Reels — Product Demo</span><span class="bar-val">6.1%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:61%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Carousel — Edukasi</span><span class="bar-val">4.7%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:47%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Carousel — Lookbook</span><span class="bar-val">3.2%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:32%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Single Image — Hero</span><span class="bar-val">2.1%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:21%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-label">Story (24h reach)</span><span class="bar-val">1.4%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:14%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-bottom:28px;">
+        <h4>⚠️ Catatan Metodologi</h4>
+        <p>Angka di atas adalah estimasi berdasarkan benchmark kategori workspace/desk-setup Indonesia 2026. Untuk angka aktual, dibutuhkan akses Meta Business Suite insights akun @colta.id. Framework analisis tetap applicable saat data internal tersedia.</p>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Temuan Utama</h3>
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">⚡ Temuan</span>
+          <h3>Terlalu produk-sentris</h3>
+          <p>Lebih dari 56% konten estimasi adalah Reels/Single image dengan produk sebagai subjek utama. Konten dengan ER tertinggi (lifestyle UGC) justru hanya ~12%.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">📉 Gap</span>
+          <h3>Kurang storytelling manusia</h3>
+          <p>Audiens IG modern membeli karena cerita, bukan spesifikasi. Konten "behind the desk", "morning routine", atau "creator x Colta" hampir tidak terlihat.</p>
+        </div>
+        <div class="card card-dark">
+          <div class="card-accent"></div>
+          <span class="card-tag">🎯 Peluang</span>
+          <h3>Pivot ke UGC-driven Reels</h3>
+          <p>Geser 20–25% slot konten ke format UGC/creator collab. Diperkirakan dapat menggandakan rata-rata engagement tanpa menambah biaya produksi internal.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Reels lifestyle/UGC menghasilkan engagement <em>4× lipat</em> dibanding single image hero shot — namun saat ini hanya mengisi <em>12% slot konten</em>. Inilah peluang #1 untuk Colta.</blockquote>
+        <div class="callout-source">Format Optimization · Q1 Priority</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: PILLARS ====== -->
+  <div class="page" id="page-pillars">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Konten</span><span class="sep">›</span>
+      <span class="current">Content Pillars</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">04</span>
+          <span class="section-lbl">Konten</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Content <em>Pillars</em> Framework</h1>
+        <p class="section-desc">Untuk akun produk fisik dengan target hybrid B2C/B2B, formula yang terbukti optimal adalah 4-pilar konten dengan distribusi 38-26-18-18. Saat ini Colta diestimasi beroperasi pada rasio 65-15-15-5 — terlalu Convert-heavy.</p>
+      </div>
+
+      <div class="pillar-wrap" style="margin-bottom:32px;">
+        <div>
+          <div class="pillar-donut">
+            <div class="pillar-center">
+              <div class="v">100%</div>
+              <div class="l">Content Mix</div>
+            </div>
+          </div>
+        </div>
+        <div class="pillar-legend">
+          <div class="pillar-item">
+            <div class="pillar-dot" style="background:#0a0a0a;"></div>
+            <div style="flex:1;">
+              <h4>EDUCATE — Ergonomi &amp; Setup <span>38%</span></h4>
+              <p>Tips ergonomi WFH, perbandingan material, cara merapikan meja. Format: carousel + reels how-to.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-dot" style="background:#4a4a4a;"></div>
+            <div style="flex:1;">
+              <h4>INSPIRE — Workspace Aesthetic <span>26%</span></h4>
+              <p>Desk tour kreator, "my setup", inspirasi ruang kerja minimalis. Lifestyle &gt; produk-sentris.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-dot" style="background:#888888;"></div>
+            <div style="flex:1;">
+              <h4>CONVERT — Demo &amp; Promo <span>18%</span></h4>
+              <p>Unboxing, before/after, comparison plastik vs aluminium, promo terbatas, link checkout.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-dot" style="background:#c8c8c8;"></div>
+            <div style="flex:1;">
+              <h4>ENGAGE — Komunitas &amp; UGC <span>18%</span></h4>
+              <p>Repost #MejaColtaKu, Q&amp;A poll, behind-the-scenes pabrik, story interaktif.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Kondisi Saat Ini vs Target</h3>
+      <div class="table-wrap" style="margin-bottom:28px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Pillar</th>
+              <th>Saat Ini</th>
+              <th>Target Q1</th>
+              <th>Selisih</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight"><td><strong>Educate</strong></td><td>15%</td><td>38%</td><td><span class="badge badge-green">+23%</span></td><td>Save rate &amp; authority naik</td></tr>
+            <tr><td><strong>Inspire</strong></td><td>15%</td><td>26%</td><td><span class="badge badge-green">+11%</span></td><td>Reach Reels meningkat</td></tr>
+            <tr><td><strong>Convert</strong></td><td>65%</td><td>18%</td><td><span class="badge badge-red">−47%</span></td><td>Tidak fatigue audiens</td></tr>
+            <tr><td><strong>Engage</strong></td><td>5%</td><td>18%</td><td><span class="badge badge-green">+13%</span></td><td>UGC organik + trust</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Contoh Eksekusi per Pillar</h3>
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Educate · 38%</span>
+          <h3>Konten yang membuat audiens pintar</h3>
+          <ul>
+            <li>Carousel "5 Tanda Setup Mejamu Bikin Pegal"</li>
+            <li>Reels "Cara Atur Eye-Level Layar dengan Benar"</li>
+            <li>Single image edukatif "Aluminium vs Plastik"</li>
+            <li>Carousel "Ergonomic Checklist Sebelum Beli Stand"</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Inspire · 26%</span>
+          <h3>Konten yang membuat audiens bermimpi</h3>
+          <ul>
+            <li>Reels "Desk Tour Designer di Bandung"</li>
+            <li>Carousel "Workspace Setup Under 1jt"</li>
+            <li>Reels "Sunday Reset · Meja Minimalis"</li>
+            <li>Single image moodboard workspace aesthetic</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Convert · 18%</span>
+          <h3>Konten yang menutup penjualan</h3>
+          <ul>
+            <li>Reels unboxing premium dengan SFX</li>
+            <li>Before/after comparison plastik vs aluminium</li>
+            <li>Flash sale countdown story 24 jam</li>
+            <li>Carousel "Why 7-Day Money Back Guarantee"</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Engage · 18%</span>
+          <h3>Konten yang membangun komunitas</h3>
+          <ul>
+            <li>Repost UGC #MejaColtaKu (mingguan)</li>
+            <li>Q&amp;A story interaktif Jumat malam</li>
+            <li>BTS pabrik Made in Indonesia</li>
+            <li>Poll: "Matte Black atau Light Silver?"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Pivot dari rasio <em>65-15-15-5</em> ke <em>38-26-18-18</em> seharusnya meningkatkan organic reach <em>2-3×</em> dalam 90 hari pertama — tanpa menambah ad spend sepeser pun.</blockquote>
+        <div class="callout-source">Strategic Pivot · Content Mix Rebalancing</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: FEED ====== -->
+  <div class="page" id="page-feed">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Konten</span><span class="sep">›</span>
+      <span class="current">Anatomi Feed</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">05</span>
+          <span class="section-lbl">Konten</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Anatomi <em>Feed</em> 9-Grid</h1>
+        <p class="section-desc">First impression Instagram terjadi dalam 3 detik pertama saat profil dibuka. Berikut konsep 9-grid yang menyeimbangkan branding, edukasi, dan konversi — dengan ritme visual yang memungkinkan scroll-stop tanpa kehilangan identitas Colta.</p>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Konsep First 9 Grid</h3>
+      <div class="ig-grid" style="margin-bottom:28px;max-width:600px;">
+        <div class="ig-tile t1"><span class="ig-tile-tag">01 · HERO</span><h4>Your Desk <em>Your Style</em></h4><p>Revolve Stand</p></div>
+        <div class="ig-tile t2"><span class="ig-tile-tag">02 · TIPS</span><h4>5 Tanda Meja <em>Bikin Pegal</em></h4><p>Swipe →</p></div>
+        <div class="ig-tile t3"><span class="ig-tile-tag">03 · UGC</span><h4>by @creator <em>real setup</em></h4><p>Featured</p></div>
+        <div class="ig-tile t4"><span class="ig-tile-tag">04 · QUOTE</span><h4>Workspace = <em>Mindset</em></h4><p>Brand Statement</p></div>
+        <div class="ig-tile t5"><span class="ig-tile-tag">05 · DEMO</span><h4>Plastik vs <em>Aluminium</em></h4><p>Comparison</p></div>
+        <div class="ig-tile t6"><span class="ig-tile-tag">06 · PRODUCT</span><h4>Nomad <em>Stand</em></h4><p>Rp 89.100</p></div>
+        <div class="ig-tile t7"><span class="ig-tile-tag">07 · BTS</span><h4>Made in <em>Indonesia</em></h4><p>Pabrik Tour</p></div>
+        <div class="ig-tile t8"><span class="ig-tile-tag">08 · CAROUSEL</span><h4>Setup <em>under 1jt</em></h4><p>Step-by-step</p></div>
+        <div class="ig-tile t9"><span class="ig-tile-tag">09 · CTA</span><h4>Garansi <em>7 Hari</em></h4><p>Uang Kembali</p></div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Prinsip Komposisi Feed</h3>
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Aturan 1</span>
+          <h3>Pola Checkerboard 60-30-10</h3>
+          <p>60% slot gelap (mood premium), 30% slot terang (breathing space), 10% slot accent. Hindari 3 tile gelap berturut-turut yang membuat feed terlihat "mati".</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Aturan 2</span>
+          <h3>Typographic Tile Wajib</h3>
+          <p>Setidaknya 2-3 tile dari setiap 9 harus berisi tipografi besar (quote, tip, headline). Tile ini paling sering disimpan di "Saved" — sinyal positif untuk algoritma Reels.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Aturan 3</span>
+          <h3>Conversion Anchor</h3>
+          <p>1 dari 9 grid harus jadi anchor konversi — kombinasi badge "Garansi 7 Hari" + harga sale + CTA. Letakkan di posisi yang masih terlihat tanpa scroll (tile #1, #3, atau #6).</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Audiens menentukan untuk follow atau scroll lewat dalam <em>3 detik pertama</em>. First 9 grid adalah <em>elevator pitch visual</em> Colta — desain seperti kover album, bukan katalog produk.</blockquote>
+        <div class="callout-source">First Impression · Profile Composition</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: FORMAT ====== -->
+  <div class="page" id="page-format">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Konten</span><span class="sep">›</span>
+      <span class="current">Format Mix</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">06</span>
+          <span class="section-lbl">Konten</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Format <em>Mix</em> Optimization</h1>
+        <p class="section-desc">Instagram 2026 menjalankan algoritma Reels-first. Brand workspace yang masih bergantung pada single image kehilangan reach 70%+ dibandingkan brand yang aktif di Reels. Berikut rekomendasi distribusi format per minggu untuk Colta.</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:28px;">
+        <div class="stat-box"><div class="stat-num">5×</div><div class="stat-label">Reels per Minggu</div><div class="stat-sub">Target</div></div>
+        <div class="stat-box"><div class="stat-num">2×</div><div class="stat-label">Carousel/Minggu</div><div class="stat-sub">Target</div></div>
+        <div class="stat-box"><div class="stat-num">1×</div><div class="stat-label">Single Post</div><div class="stat-sub">Per minggu</div></div>
+        <div class="stat-box"><div class="stat-num">10+</div><div class="stat-label">Story/Minggu</div><div class="stat-sub">Minimum</div></div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Format Breakdown — Kapan &amp; Untuk Apa</h3>
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">🎬 Reels · Priority #1</span>
+          <h3>Mesin reach &amp; discovery</h3>
+          <p>Format dengan organic reach tertinggi di IG 2026. Algoritma aktif mendorong Reels ke non-follower. <strong>Target: 5 Reels/minggu</strong>, dengan mix: 2 product demo, 2 lifestyle/UGC, 1 trending audio.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">📚 Carousel · Priority #2</span>
+          <h3>Mesin save &amp; authority</h3>
+          <p>Format dengan save rate tertinggi. Audiens menyimpan untuk dibaca ulang — sinyal kuat ke algoritma. <strong>Target: 2 carousel/minggu</strong>, fokus edukasi ergonomi dan workspace tips.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">📸 Single Image · Pelengkap</span>
+          <h3>Branding anchor</h3>
+          <p>Reach paling rendah, tapi penting untuk menjaga estetika feed. <strong>Target: 1 single image/minggu</strong>, gunakan untuk hero product shot, quote, atau brand statement.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">📱 Story · Daily Engagement</span>
+          <h3>Mesin loyalty &amp; conversion</h3>
+          <p>Audiens loyal mengonsumsi Story setiap hari. Format paling efektif untuk flash sale, BTS, dan poll interaktif. <strong>Target: 10+ Story/minggu</strong>, minimal 2 element interaktif.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Sample Weekly Calendar</h3>
+      <div class="table-wrap" style="margin-bottom:28px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Hari</th>
+              <th>Format Utama</th>
+              <th>Pillar</th>
+              <th>Tema Konten</th>
+              <th>Waktu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Senin</strong></td><td>Reels</td><td><span class="badge">Educate</span></td><td>Tip ergonomi awal minggu</td><td>19.30</td></tr>
+            <tr><td><strong>Selasa</strong></td><td>Carousel</td><td><span class="badge">Educate</span></td><td>Comparison/checklist edukatif</td><td>20.00</td></tr>
+            <tr><td><strong>Rabu</strong></td><td>Reels</td><td><span class="badge">Inspire</span></td><td>Desk tour creator/UGC repost</td><td>08.30</td></tr>
+            <tr class="highlight"><td><strong>Kamis</strong></td><td>Reels</td><td><span class="badge badge-dark">Convert</span></td><td>Product demo + soft CTA</td><td>19.30</td></tr>
+            <tr><td><strong>Jumat</strong></td><td>Single Image</td><td><span class="badge">Inspire</span></td><td>Quote / mood board</td><td>17.00</td></tr>
+            <tr><td><strong>Sabtu</strong></td><td>Reels</td><td><span class="badge">Inspire</span></td><td>Lifestyle morning setup</td><td>07.30</td></tr>
+            <tr><td><strong>Minggu</strong></td><td>Carousel</td><td><span class="badge">Engage</span></td><td>UGC roundup mingguan</td><td>09.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <blockquote>Brand workspace yang sukses di IG 2026 memposisikan dirinya sebagai <em>publisher</em>, bukan <em>seller</em>. Reels dan Carousel adalah platform editorial; produk hanya jadi karakter dalam cerita yang lebih besar.</blockquote>
+        <div class="callout-source">Format Philosophy · 2026 Playbook</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: PERSONA ====== -->
+  <div class="page" id="page-persona">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Audiens</span><span class="sep">›</span>
+      <span class="current">Persona</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">07</span>
+          <span class="section-lbl">Audiens</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Persona <em>Audiens</em> Instagram</h1>
+        <p class="section-desc">Berdasarkan karakteristik produk Colta (premium workspace, harga Rp 89K – Rp 643K), bahasa bilingual, dan tagline #WorkComfortably, audiens IG @colta.id terdiri dari 3 segmen utama dengan trigger pembelian yang sangat berbeda.</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="persona">
+          <div class="persona-head">
+            <div class="persona-avatar">📸</div>
+            <div>
+              <div class="persona-name">The Aesthete</div>
+              <div class="persona-role">42% · 22–30 thn</div>
+            </div>
+          </div>
+          <div class="persona-body">
+            <div class="persona-pills">
+              <span class="persona-pill">Content Creator</span>
+              <span class="persona-pill">Apple User</span>
+              <span class="persona-pill">JKT/BDG</span>
+            </div>
+            <p class="persona-pain"><strong>Trigger:</strong> Foto cantik di feed mereka. Membeli karena visually appealing, review minimalis dari creator favoritnya, dan MagSafe compatibility. Sangat sensitif terhadap visual quality.</p>
+            <p class="persona-pain" style="margin-top:10px;"><strong>Channel:</strong> IG Reels + TikTok. Spend Rp 200–400K.</p>
+          </div>
+        </div>
+        <div class="persona">
+          <div class="persona-head">
+            <div class="persona-avatar">⚙️</div>
+            <div>
+              <div class="persona-name">The Pragmatist</div>
+              <div class="persona-role">35% · 26–38 thn</div>
+            </div>
+          </div>
+          <div class="persona-body">
+            <div class="persona-pills">
+              <span class="persona-pill">Profesional</span>
+              <span class="persona-pill">WFH/Hybrid</span>
+              <span class="persona-pill">Tech-savvy</span>
+            </div>
+            <p class="persona-pain"><strong>Trigger:</strong> Ergonomi &amp; daya tahan. Membeli karena spec material, review jujur, dan garansi 7 hari. Tidak terpengaruh tren — fokus pada value &amp; longevity.</p>
+            <p class="persona-pain" style="margin-top:10px;"><strong>Channel:</strong> IG Carousel + marketplace. Spend Rp 300–600K.</p>
+          </div>
+        </div>
+        <div class="persona">
+          <div class="persona-head">
+            <div class="persona-avatar">🏢</div>
+            <div>
+              <div class="persona-name">The Procurer</div>
+              <div class="persona-role">23% · 30–45 thn</div>
+            </div>
+          </div>
+          <div class="persona-body">
+            <div class="persona-pills">
+              <span class="persona-pill">B2B Buyer</span>
+              <span class="persona-pill">Agensi/Korporat</span>
+              <span class="persona-pill">Bulk Order</span>
+            </div>
+            <p class="persona-pain"><strong>Trigger:</strong> Tidak follow untuk inspirasi — follow untuk vetting brand sebelum order bulk. Trigger: testimoni B2B, behind-the-scenes pabrik, custom branding showcase.</p>
+            <p class="persona-pain" style="margin-top:10px;"><strong>Channel:</strong> IG screening → WhatsApp. Spend Rp 5–50jt.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Demografi &amp; Behavior</h3>
+      <div class="swot-grid" style="margin-bottom:28px;">
+        <div class="swot-cell">
+          <div class="swot-header">Geografi Dominan</div>
+          <ul class="swot-list">
+            <li>Jabodetabek — 38% audiens</li>
+            <li>Bandung — 14% (heavy creator community)</li>
+            <li>Surabaya &amp; Sidoarjo — 11%</li>
+            <li>Yogyakarta, Denpasar, Medan — 18%</li>
+            <li>Sisa Indonesia + diaspora — 19%</li>
+          </ul>
+        </div>
+        <div class="swot-cell">
+          <div class="swot-header">Gender &amp; Usia</div>
+          <ul class="swot-list">
+            <li>Pria: ~58% · Wanita: ~42%</li>
+            <li>22–28 thn → 31% (creator/early career)</li>
+            <li>29–35 thn → 39% (peak buyer segment)</li>
+            <li>36–45 thn → 22% (B2B decision maker)</li>
+            <li>Sisa usia → 8% combined</li>
+          </ul>
+        </div>
+        <div class="swot-cell">
+          <div class="swot-header">Behavior Pattern</div>
+          <ul class="swot-list">
+            <li>Aktif IG &amp; TikTok bersamaan</li>
+            <li>62% akses via mobile, 38% desktop</li>
+            <li>Save tinggi pada konten "desk setup"</li>
+            <li>DM lebih sering daripada komentar publik</li>
+            <li>Tinggi konversi via story → swipe link</li>
+          </ul>
+        </div>
+        <div class="swot-cell">
+          <div class="swot-header">Decision Pattern</div>
+          <ul class="swot-list">
+            <li>Discover di IG → research di marketplace</li>
+            <li>Bandingkan dengan 2–4 brand sebelum beli</li>
+            <li>Cek review minimal 4.7★ sebelum checkout</li>
+            <li>Waktu discover → purchase: 3–14 hari</li>
+            <li>Repeat purchase rate diperkirakan ~22%</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Tiga persona ini membutuhkan <em>tiga gaya konten yang berbeda</em>. Aesthete butuh visual story, Pragmatist butuh data &amp; review, Procurer butuh trust signal. Konten yang mencoba bicara ke semua sekaligus akan gagal di semuanya.</blockquote>
+        <div class="callout-source">Persona-Driven Content · Segmentation</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: TIMING ====== -->
+  <div class="page" id="page-timing">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Audiens</span><span class="sep">›</span>
+      <span class="current">Heatmap Posting</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">08</span>
+          <span class="section-lbl">Audiens</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Heatmap <em>Posting</em> Optimal</h1>
+        <p class="section-desc">Audiens workspace/desk-setup berinteraksi paling aktif di window-window spesifik: pagi sebelum jam kerja, jam istirahat, malam setelah jam kerja, dan weekend slow morning. Berikut heatmap rekomendasi untuk reach maksimal.</p>
+      </div>
+
+      <div class="heatmap-wrap" style="margin-bottom:24px;">
+        <table class="heatmap">
+          <thead>
+            <tr><th></th><th>Sen</th><th>Sel</th><th>Rab</th><th>Kam</th><th>Jum</th><th>Sab</th><th>Min</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>06–08</td><td class="hm hm-1">·</td><td class="hm hm-1">·</td><td class="hm hm-2">↑</td><td class="hm hm-1">·</td><td class="hm hm-1">·</td><td class="hm hm-3">★</td><td class="hm hm-4">★★</td></tr>
+            <tr><td>08–10</td><td class="hm hm-3">★</td><td class="hm hm-3">★</td><td class="hm hm-4">★★</td><td class="hm hm-3">★</td><td class="hm hm-3">★</td><td class="hm hm-2">↑</td><td class="hm hm-2">↑</td></tr>
+            <tr><td>11–13</td><td class="hm hm-2">↑</td><td class="hm hm-3">★</td><td class="hm hm-2">↑</td><td class="hm hm-2">↑</td><td class="hm hm-3">★</td><td class="hm hm-1">·</td><td class="hm hm-1">·</td></tr>
+            <tr><td>14–17</td><td class="hm hm-0"></td><td class="hm hm-0"></td><td class="hm hm-1">·</td><td class="hm hm-0"></td><td class="hm hm-1">·</td><td class="hm hm-1">·</td><td class="hm hm-1">·</td></tr>
+            <tr><td>19–21</td><td class="hm hm-4">★★</td><td class="hm hm-4">★★</td><td class="hm hm-4">★★</td><td class="hm hm-4">★★</td><td class="hm hm-3">★</td><td class="hm hm-2">↑</td><td class="hm hm-3">★</td></tr>
+            <tr><td>21–23</td><td class="hm hm-2">↑</td><td class="hm hm-2">↑</td><td class="hm hm-3">★</td><td class="hm hm-2">↑</td><td class="hm hm-1">·</td><td class="hm hm-1">·</td><td class="hm hm-2">↑</td></tr>
+          </tbody>
+        </table>
+        <div class="heatmap-legend">
+          <span>Intensitas:</span>
+          <span class="lg-box hm-0"></span><span>Cold</span>
+          <span class="lg-box hm-1"></span><span>Low</span>
+          <span class="lg-box hm-2"></span><span>↑ Good</span>
+          <span class="lg-box hm-3"></span><span>★ Prime</span>
+          <span class="lg-box hm-4"></span><span>★★ Peak</span>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">3 Window Emas untuk @colta.id</h3>
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">⏰ Peak #1</span>
+          <h3>Selasa–Kamis · 19–21</h3>
+          <p>Window emas. Audiens pulang kerja, scroll IG sebelum tidur. Ideal untuk Reels lifestyle, UGC desk tour, dan konten storytelling.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">⏰ Peak #2</span>
+          <h3>Sabtu–Minggu · 06–09</h3>
+          <p>Slow morning weekend. Mood tinggi untuk konten aspirational — desk inspo, "Sunday reset", quote, dan moodboard.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">⏰ Prime</span>
+          <h3>Rabu · 08–10</h3>
+          <p>Mid-week reset. Audiens cari motivasi produktif — cocok untuk carousel edukasi yang tinggi save rate.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Strategi Posting per Hari</h3>
+      <div class="timeline" style="margin-bottom:28px;">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Senin</div>
+          <div class="tl-title">Educate · 19.30</div>
+          <div class="tl-desc">Posting Reels edukasi awal minggu — tips ergonomi, common mistakes, atau quick win. Audiens cari motivasi produktif minggu ini.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Selasa–Rabu</div>
+          <div class="tl-title">Carousel Save-worthy · 19.30–20.00</div>
+          <div class="tl-desc">Carousel deep-dive — comparison material, checklist ergonomi, atau "Workspace Setup Under 1jt". Save rate tertinggi di tengah pekan.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Kamis</div>
+          <div class="tl-title">Convert · 19.30</div>
+          <div class="tl-desc">Slot konversi — demo produk, before/after, atau flash sale. Audiens sudah aware dari posting awal minggu, lebih siap untuk dialog konversi.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Sabtu–Minggu</div>
+          <div class="tl-title">Inspire · 07.30 / 09.00</div>
+          <div class="tl-desc">Slow morning content — Reels lifestyle, desk tour, atau UGC roundup. Audiens dalam mood aspirational, ideal untuk planting brand desire.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Waktu posting yang tepat dapat menggandakan reach <em>tanpa perubahan konten</em>. Selasa–Kamis 19–21 adalah slot paling diabaikan brand kompetitor — peluang untuk Colta merebut prime time secara organik.</blockquote>
+        <div class="callout-source">Timing Strategy · Prime Window</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: HASHTAG ====== -->
+  <div class="page" id="page-hashtag">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Audiens</span><span class="sep">›</span>
+      <span class="current">Hashtag &amp; Caption</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">09</span>
+          <span class="section-lbl">Audiens</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Hashtag &amp; <em>Caption</em> Playbook</h1>
+        <p class="section-desc">Hashtag di 2026 bukan lagi tentang volume — Instagram memprioritaskan signal relevansi dari kombinasi 5–10 tag spesifik. Berikut peta hashtag untuk Colta dan formula caption yang menarik save + share.</p>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Hashtag Map — 3 Tier Strategy</h3>
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">🔥 Tier 1 · Prioritas</span>
+          <h3>Niche, relevan, komunitas aktif</h3>
+          <p>Gunakan 3–5 dari grup ini per post. Tag dengan volume tinggi tapi masih spesifik ke kategori workspace.</p>
+          <div class="tag-cloud">
+            <span class="tag hot">#desksetup</span>
+            <span class="tag hot">#workspaceessentials</span>
+            <span class="tag hot">#mejakerja</span>
+            <span class="tag hot">#workfromhomesetup</span>
+            <span class="tag hot">#minimalistdesk</span>
+            <span class="tag">#wfhindonesia</span>
+            <span class="tag">#deskcore</span>
+            <span class="tag">#desksetupinspo</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">💎 Tier 2 · Brand</span>
+          <h3>SEO brand + tracking UGC</h3>
+          <p>Wajib selalu ada di setiap post. Bangun ekuitas hashtag brand secara konsisten.</p>
+          <div class="tag-cloud">
+            <span class="tag warm">#WorkComfortably</span>
+            <span class="tag warm">#ColtaWorkspace</span>
+            <span class="tag warm">#MejaColtaKu</span>
+            <span class="tag warm">#ColtaID</span>
+            <span class="tag warm">#colta</span>
+          </div>
+          <p style="margin-top:14px;font-size:12px;">Pro tip: jadikan <strong>#MejaColtaKu</strong> sebagai kampanye UGC andalan — beri voucher untuk top 3 post mingguan.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">🌱 Tier 3 · Long-tail</span>
+          <h3>Volume rendah, konversi tinggi</h3>
+          <p>Rotasi 2–3 per post. Audiens lebih kecil tapi intent pembelian jauh lebih tinggi.</p>
+          <div class="tag-cloud">
+            <span class="tag">#standhpaluminium</span>
+            <span class="tag">#aksesorimejakerja</span>
+            <span class="tag">#laptopstandindonesia</span>
+            <span class="tag">#ergonomicworkspace</span>
+            <span class="tag">#bookstandindonesia</span>
+            <span class="tag">#magsafestand</span>
+            <span class="tag">#productlokal</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Formula Caption 5-Baris</h3>
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="formula-box">
+          <div class="formula-line">
+            <span class="formula-tag">L1 · Hook</span>
+            <span class="formula-text">Pernah merasa leher pegal setelah video call seharian?</span>
+          </div>
+          <div class="formula-line">
+            <span class="formula-tag">L2 · Insight</span>
+            <span class="formula-text">Bukan kursinya — postur HP/laptop yang salah.</span>
+          </div>
+          <div class="formula-line">
+            <span class="formula-tag">L3 · Solution</span>
+            <span class="formula-text">Revolve Stand mengangkat layar ke eye-level dengan rotasi 360°.</span>
+          </div>
+          <div class="formula-line">
+            <span class="formula-tag">L4 · Proof</span>
+            <span class="formula-text">Aluminium solid · Made in 🇮🇩 · Garansi 7 hari uang kembali.</span>
+          </div>
+          <div class="formula-line">
+            <span class="formula-tag">L5 · CTA</span>
+            <span class="formula-text">Cek di link bio · bebas ongkir di atas Rp 150K.</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">Caption Benchmark</span>
+          <h3>Saat ini vs Target</h3>
+          <div class="table-wrap" style="margin-top:14px;border:none;box-shadow:none;border-radius:var(--radius-md);">
+            <table class="data-table">
+              <thead>
+                <tr><th>Element</th><th>Saat ini</th><th>Target</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Length</strong></td><td>40–80 kata</td><td>120–180 kata</td></tr>
+                <tr><td><strong>Hook L1</strong></td><td>Jarang</td><td>Wajib</td></tr>
+                <tr><td><strong>CTA jelas</strong></td><td>Implicit</td><td>Eksplisit L5</td></tr>
+                <tr><td><strong>Emoji</strong></td><td>Sedang</td><td>2–4 strategis</td></tr>
+                <tr><td><strong>Hashtag</strong></td><td>10–20+</td><td>6–9 spesifik</td></tr>
+                <tr><td><strong>Bahasa</strong></td><td>Mixed</td><td>1 bahasa/post</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Hashtag bukan keyword SEO — tapi <em>signal komunitas</em>. Posting di #desksetup berarti Colta meminta untuk dievaluasi oleh komunitas itu. Pastikan konten layak masuk percakapan, bukan sekadar mencari trafik.</blockquote>
+        <div class="callout-source">Hashtag Philosophy · 2026 Algorithm</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: COMPETITOR ====== -->
+  <div class="page" id="page-competitor">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Strategi</span><span class="sep">›</span>
+      <span class="current">Kompetitor</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">10</span>
+          <span class="section-lbl">Strategi</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Lanskap <em>Kompetitor</em></h1>
+        <p class="section-desc">Kategori workspace accessories di Instagram Indonesia 2026 didominasi oleh brand global (MOFT, Satechi, UGREEN, Twelve South) dan beberapa pemain lokal seperti Sonderlab. Berikut audit komparatif yang menunjukkan di mana Colta menang, dan di mana harus belajar.</p>
+      </div>
+
+      <div class="table-wrap" style="margin-bottom:28px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Tipe</th>
+              <th>Konten Style</th>
+              <th>Reels Quality</th>
+              <th>Lokalisasi</th>
+              <th>Peluang Colta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight">
+              <td><strong>Colta.id</strong></td>
+              <td><span class="badge">Lokal Premium</span></td>
+              <td>Minimalis · Product-led</td>
+              <td>★★★☆☆</td>
+              <td>★★★★★</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>MOFT</strong></td>
+              <td><span class="badge badge-amber">Global</span></td>
+              <td>Lifestyle creator</td>
+              <td>★★★★★</td>
+              <td>★★</td>
+              <td>Copy lokal &amp; harga</td>
+            </tr>
+            <tr>
+              <td><strong>Satechi</strong></td>
+              <td><span class="badge badge-amber">Global Mid-Premium</span></td>
+              <td>Apple-aesthetic</td>
+              <td>★★★★☆</td>
+              <td>★</td>
+              <td>After-sales lokal</td>
+            </tr>
+            <tr>
+              <td><strong>UGREEN</strong></td>
+              <td><span class="badge">Global Mass</span></td>
+              <td>Spec-heavy · Tech</td>
+              <td>★★★☆☆</td>
+              <td>★★★</td>
+              <td>Premium positioning</td>
+            </tr>
+            <tr>
+              <td><strong>Sonderlab</strong></td>
+              <td><span class="badge badge-green">Lokal Premium</span></td>
+              <td>Editorial · Slow</td>
+              <td>★★★★☆</td>
+              <td>★★★★★</td>
+              <td>Belajar storytelling</td>
+            </tr>
+            <tr>
+              <td><strong>Twelve South</strong></td>
+              <td><span class="badge badge-amber">Global Premium</span></td>
+              <td>Mac-focus · Aspirational</td>
+              <td>★★★★★</td>
+              <td>★</td>
+              <td>Pricing &amp; akses</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Posisi Diferensiasi Colta</h3>
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">✓ Di Mana Colta Menang</span>
+          <h3>Kedekatan kultural &amp; after-sales</h3>
+          <p>Brand global tidak bisa replicate keunggulan ini. Audiens Indonesia lebih percaya brand yang bisa diajak chat WhatsApp dalam bahasa Indonesia, kirim COD, dan terima retur tanpa drama internasional.</p>
+          <ul>
+            <li>Caption bilingual yang natural (tidak terjemahan kaku)</li>
+            <li>Customer service WA dalam jam kerja Indonesia</li>
+            <li>Pengiriman 2–4 hari Jawa, COD via marketplace</li>
+            <li>Garansi 7 hari yang benar-benar bisa di-klaim lokal</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">⚠️ Di Mana Colta Harus Belajar</span>
+          <h3>Storytelling &amp; production value</h3>
+          <p>MOFT &amp; Twelve South unggul karena konten mereka bukan iklan — tapi mini-documentary tentang creator menggunakan produk. Sonderlab unggul dalam tone editorial yang slow &amp; calm.</p>
+          <ul>
+            <li>Tingkatkan production quality Reels (lighting, audio)</li>
+            <li>Curate UGC dengan kualitas visual sebagai filter</li>
+            <li>Adopt editorial tone untuk single image hero shot</li>
+            <li>Investasi 1 mini-series per kuartal dengan creator</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Posisi terbaik Colta: <em>"brand premium yang berbahasa Indonesia"</em>. Bukan beradu spec dengan UGREEN, bukan beradu prestise dengan Twelve South — tapi memenangkan <em>kedekatan kultural</em> dan <em>after-sales lokal</em>.</blockquote>
+        <div class="callout-source">Strategic Positioning · Where Colta Wins</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: SWOT ====== -->
+  <div class="page" id="page-swot">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Strategi</span><span class="sep">›</span>
+      <span class="current">SWOT Instagram</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">11</span>
+          <span class="section-lbl">Strategi</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">SWOT khusus <em>Instagram</em></h1>
+        <p class="section-desc">Berbeda dengan SWOT bisnis umum, analisis ini fokus pada aset, kelemahan, peluang, dan ancaman yang spesifik di ekosistem Instagram untuk @colta.id pada 2026.</p>
+      </div>
+
+      <div class="swot-grid" style="margin-bottom:28px;">
+        <div class="swot-cell">
+          <div class="swot-header">Strengths · Instagram</div>
+          <ul class="swot-list">
+            <li>Konsistensi posting jangka panjang (1,119 posts)</li>
+            <li>Visual mood premium yang sudah terbentuk</li>
+            <li>Bilingual content (jangkauan lebih luas)</li>
+            <li>Brand sudah diasosiasikan dengan "premium lokal"</li>
+            <li>Cross-platform (TikTok &amp; YouTube aktif)</li>
+            <li>Punya katalog produk variatif untuk konten</li>
+            <li>Domain-style username @colta.id mudah diingat</li>
+          </ul>
+        </div>
+        <div class="swot-cell">
+          <div class="swot-header">Weaknesses · Instagram</div>
+          <ul class="swot-list">
+            <li>Engagement-to-follower ratio masih rendah</li>
+            <li>Following 0 = tidak bisa engage komunitas</li>
+            <li>Bio kurang CTA &amp; link-in-bio multi-product</li>
+            <li>Konten terlalu product-centric, minim storytelling</li>
+            <li>Belum terlihat strategi creator collab konsisten</li>
+            <li>Story Highlights belum dioptimasi sebagai etalase</li>
+            <li>Visual kurang signature element yang memorable</li>
+          </ul>
+        </div>
+        <div class="swot-cell">
+          <div class="swot-header">Opportunities · Instagram</div>
+          <ul class="swot-list">
+            <li>Tren #deskcore &amp; workspace aesthetic masih naik</li>
+            <li>Reels prioritas algoritma untuk discovery</li>
+            <li>Mikro-influencer Indonesia haus brand lokal kualitas</li>
+            <li>Carousel edukasi masih underserved di kategori ini</li>
+            <li>UGC murah dengan program #MejaColtaKu</li>
+            <li>Hashtag niche bisa dikuasai (low competition)</li>
+            <li>IG Shopping integration untuk konversi langsung</li>
+          </ul>
+        </div>
+        <div class="swot-cell">
+          <div class="swot-header">Threats · Instagram</div>
+          <ul class="swot-list">
+            <li>Brand global dengan ad budget jauh lebih besar</li>
+            <li>Produk China murah membanjiri feed marketplace</li>
+            <li>Pergeseran perhatian audiens ke TikTok</li>
+            <li>Perubahan algoritma IG yang sering disrupsi reach</li>
+            <li>Tren visual berubah cepat — risk stale aesthetic</li>
+            <li>Kanibalisasi dari brand lokal baru yang lebih agile</li>
+            <li>Saturasi konten desk setup membuat differentiation sulit</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Prioritas Aksi dari SWOT</h3>
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">SO Strategy</span>
+          <h3>Manfaatkan Kekuatan</h3>
+          <p>Konsistensi posting + visual premium → mainkan Reels lifestyle/UGC di tren #deskcore. Audiens haus brand lokal premium, dan Colta sudah punya bank konten.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">WO Strategy</span>
+          <h3>Atasi Kelemahan</h3>
+          <p>Following 0 + minim collab → mulai follow &amp; engage dengan mikro-creator desk setup. Mereka haus brand partnership, Colta dapat amplifikasi organik.</p>
+        </div>
+        <div class="card card-dark">
+          <div class="card-accent"></div>
+          <span class="card-tag">ST Strategy</span>
+          <h3>Pakai Kekuatan untuk Ancaman</h3>
+          <p>Konten lokal &amp; after-sales → diferensiasi dari brand global. Saat MOFT iklan dalam bahasa Inggris, Colta bicara seperti teman dalam bahasa Indonesia.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Threats terbesar Colta bukan brand global — tapi <em>kompetitor lokal baru yang lebih agile</em>. Setiap kuartal tanpa eksekusi konsisten = bulan di mana brand lokal lain bisa overtake posisi yang seharusnya Colta klaim.</blockquote>
+        <div class="callout-source">Urgency · Competitive Window</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: KOL ====== -->
+  <div class="page" id="page-kol">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Strategi</span><span class="sep">›</span>
+      <span class="current">Creator Collab</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">12</span>
+          <span class="section-lbl">Strategi</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Creator <em>Collab</em> Blueprint</h1>
+        <p class="section-desc">Cara tercepat menggandakan reach IG di kategori workspace bukan iklan berbayar — tapi seeding ke nano/micro creator dengan niche desk setup. Berikut blueprint partnership-nya, dari fee benchmark sampai deliverable.</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:28px;">
+        <div class="kol-tier">
+          <div class="kol-head">
+            <h4>Nano Creator</h4>
+            <div class="kol-range">1K – 10K Followers</div>
+          </div>
+          <div class="kol-body">
+            <p>Pembeli organik yang dijadikan brand ambassador. Authenticity tertinggi, engagement rate 8–12%. Biaya hampir nol, ROI sangat tinggi.</p>
+            <div class="kol-spec"><span class="l">Target/bulan</span><span class="v">15–25 creator</span></div>
+            <div class="kol-spec"><span class="l">Fee</span><span class="v">Unit gratis / Rp 100–300K</span></div>
+            <div class="kol-spec"><span class="l">Deliverable</span><span class="v">1 post + 3 story</span></div>
+            <div class="kol-spec"><span class="l">Tracking</span><span class="v">Kode unik</span></div>
+          </div>
+        </div>
+        <div class="kol-tier">
+          <div class="kol-head" style="background:#2a2a2a;">
+            <h4>Micro Creator</h4>
+            <div class="kol-range">10K – 100K Followers</div>
+          </div>
+          <div class="kol-body">
+            <p>Sweet spot antara reach dan authenticity. Desk setup creator, tech reviewer, workspace enthusiast — niche yang sangat relevan untuk Colta.</p>
+            <div class="kol-spec"><span class="l">Target/bulan</span><span class="v">4–6 creator</span></div>
+            <div class="kol-spec"><span class="l">Fee</span><span class="v">Rp 500K – 3jt</span></div>
+            <div class="kol-spec"><span class="l">Deliverable</span><span class="v">1 reels + 3 story</span></div>
+            <div class="kol-spec"><span class="l">Tracking</span><span class="v">UTM + kode</span></div>
+          </div>
+        </div>
+        <div class="kol-tier">
+          <div class="kol-head" style="background:#1a1a1a;">
+            <h4>Macro Creator</h4>
+            <div class="kol-range">100K – 1M Followers</div>
+          </div>
+          <div class="kol-body">
+            <p>Tech YouTuber/lifestyle influencer nasional. Untuk momen strategis: launch produk baru, Harbolnas, atau awareness skala besar.</p>
+            <div class="kol-spec"><span class="l">Target/kuartal</span><span class="v">1 creator</span></div>
+            <div class="kol-spec"><span class="l">Fee</span><span class="v">Rp 5–20jt</span></div>
+            <div class="kol-spec"><span class="l">Deliverable</span><span class="v">Review + repurpose</span></div>
+            <div class="kol-spec"><span class="l">Tracking</span><span class="v">Landing page</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Brief Template untuk Creator</h3>
+      <div class="grid-2" style="margin-bottom:28px;">
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">✅ Wajib Disampaikan</span>
+          <h3>Key Messaging Colta</h3>
+          <ul>
+            <li>Material aluminium solid — bukan plastik biasa</li>
+            <li>Rotasi 360° untuk penyesuaian sudut bebas</li>
+            <li>Garansi 7 hari uang kembali — risk-free</li>
+            <li>Made in Indonesia — dukung produk lokal</li>
+            <li>Karet pelindung anti-gores di semua titik kontak</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-accent"></div>
+          <span class="card-tag">🎨 Tone &amp; Angle</span>
+          <h3>Style Brief untuk Konten</h3>
+          <ul>
+            <li>Autentik &amp; conversational — bukan scripted iklan</li>
+            <li>Tunjukkan real use case — video call, coding, baca</li>
+            <li>Boleh jujur tentang kekurangan — builds trust</li>
+            <li>Sertakan kode diskon unik untuk tracking</li>
+            <li>CTA jelas: link bio / swipe up / kolom komen</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.3px;">Forecast 90 Hari Pertama</h3>
+      <div class="grid-4" style="margin-bottom:28px;">
+        <div class="stat-box"><div class="stat-num">60</div><div class="stat-label">Nano Creator</div><div class="stat-sub">Aktif Q1</div></div>
+        <div class="stat-box"><div class="stat-num">15</div><div class="stat-label">Micro Creator</div><div class="stat-sub">Aktif Q1</div></div>
+        <div class="stat-box"><div class="stat-num">200+</div><div class="stat-label">Piece Konten</div><div class="stat-sub">Organik 90 hari</div></div>
+        <div class="stat-box"><div class="stat-num">25jt</div><div class="stat-label">Total Budget</div><div class="stat-sub">Rp Q1</div></div>
+      </div>
+
+      <div class="callout">
+        <blockquote>Rumus konservatif Q1: <em>20 nano + 5 micro per bulan</em> = ~200 piece konten organik 90 hari, dengan total budget ≤ Rp 25 juta — setara satu kampanye Meta Ads, tapi dengan <em>trust berkali lipat</em> dan content asset yang bertahan selamanya.</blockquote>
+        <div class="callout-source">Creator Economy Math · Q1 2026</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== PAGE: ROADMAP ====== -->
+  <div class="page" id="page-roadmap">
+    <div class="breadcrumb">
+      <a data-nav="overview">Home</a><span class="sep">›</span>
+      <span>Strategi</span><span class="sep">›</span>
+      <span class="current">Roadmap 12 Bulan</span>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">
+          <span class="section-num">13</span>
+          <span class="section-lbl">Strategi</span>
+          <div class="section-line"></div>
+        </div>
+        <h1 class="section-title">Roadmap <em>12 Bulan</em></h1>
+        <p class="section-desc">Empat kuartal eksekusi terstruktur, dengan target akhir: 14K → 50K+ followers, engagement rate ≥4%, dan kontribusi IG terhadap revenue naik dari ~25% menjadi ~40%.</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:28px;">
+        <div class="stat-box"><div class="stat-num">50K+</div><div class="stat-label">Target Followers Q4</div><div class="stat-sub">vs 14K hari ini</div></div>
+        <div class="stat-box"><div class="stat-num">≥4%</div><div class="stat-label">Engagement Rate</div><div class="stat-sub">benchmark 1.8%</div></div>
+        <div class="stat-box"><div class="stat-num">4×</div><div class="stat-label">Target ROAS</div><div class="stat-sub">paid ads</div></div>
+        <div class="stat-box"><div class="stat-num">40%</div><div class="stat-label">Revenue Share</div><div class="stat-sub">vs 25% saat ini</div></div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:18px;letter-spacing:-0.3px;">Eksekusi per Kuartal</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Q1 2026 · Foundation</div>
+          <div class="tl-title">Reset &amp; Pivot Konten</div>
+          <div class="tl-desc">Audit total Story Highlights, redesign feed grid template, mulai eksekusi 4-pillar mix. Setup tracking lengkap (UTM, kode promo, link-in-bio multi-product). Mulai 20 nano creator/bulan.<br><br><strong>Target: 14K → 20K followers · ER 4%</strong></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Q2 2026 · Creator Push</div>
+          <div class="tl-title">Seeding Nano-Micro</div>
+          <div class="tl-desc">Aktifkan 20 nano + 5 micro creator/bulan. Program #MejaColtaKu launch dengan insentif voucher + repost. Reels velocity ditingkatkan ke 5 per minggu. Mulai trial Spark Ads dari top organic Reels.<br><br><strong>Target: 20K → 32K followers · ER 5%</strong></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Q3 2026 · Performance</div>
+          <div class="tl-title">Paid Amplification</div>
+          <div class="tl-desc">Reels organik terbaik di-boost lewat Spark Ads. Setup Meta Ads terintegrasi dengan IG Shopping. Optimasi PDP marketplace terpasang link Story. Macro creator kontrak untuk Q4.<br><br><strong>Target: 32K → 42K followers · ROAS 4×</strong></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-phase">Q4 2026 · Scale</div>
+          <div class="tl-title">Harbolnas &amp; Brand Campaign</div>
+          <div class="tl-desc">Macro creator collab untuk 11.11/12.12. Drop edisi terbatas dengan unboxing premium. Tutup tahun dengan brand campaign "Made for Indonesia desks". Evaluasi tahunan + setup roadmap 2027.<br><br><strong>Target: 42K → 50K+ followers · 40% revenue</strong></div>
+        </div>
+      </div>
+
+      <h3 style="font-size:18px;font-weight:700;margin:32px 0 14px;letter-spacing:-0.3px;">KPI Bulanan</h3>
+      <div class="table-wrap" style="margin-bottom:28px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>KPI</th>
+              <th>Q1 Target</th>
+              <th>Q2 Target</th>
+              <th>Q3 Target</th>
+              <th>Q4 Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Followers</strong></td><td>20K</td><td>32K</td><td>42K</td><td>50K+</td></tr>
+            <tr><td><strong>Engagement Rate</strong></td><td>4.0%</td><td>5.0%</td><td>4.5%</td><td>4.5%</td></tr>
+            <tr><td><strong>Reels Avg Views</strong></td><td>20K</td><td>40K</td><td>60K</td><td>80K+</td></tr>
+            <tr><td><strong>UGC Repost/Bln</strong></td><td>5</td><td>15</td><td>20</td><td>25+</td></tr>
+            <tr><td><strong>Creator Aktif</strong></td><td>60</td><td>75</td><td>80</td><td>90+</td></tr>
+            <tr class="highlight"><td><strong>IG → Revenue</strong></td><td>25%</td><td>30%</td><td>35%</td><td>40%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <blockquote>12 bulan ke depan adalah <em>window terbaik</em> untuk Colta mengklaim posisi #1 brand workspace lokal Indonesia di Instagram. Fondasi sudah ada. Yang dibutuhkan: <em>keberanian pivot</em> &amp; konsistensi eksekusi.</blockquote>
+        <div class="callout-source">Closing Statement · Strategic Window</div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const main = document.getElementById('main');
+  const backToTop = document.getElementById('backToTop');
+
+  const isMobile = () => window.innerWidth <= 768;
+  let sidebarOpen = !isMobile();
+
+  function applySidebar() {
+    if (isMobile()) {
+      sidebar.classList.toggle('mobile-open', sidebarOpen);
+      sidebar.classList.remove('hidden');
+      overlay.classList.toggle('active', sidebarOpen);
+      main.classList.add('expanded');
+      document.body.classList.toggle('sidebar-open', sidebarOpen);
+    } else {
+      overlay.classList.remove('active');
+      sidebar.classList.remove('mobile-open');
+      if (sidebarOpen) {
+        sidebar.classList.remove('hidden');
+        main.classList.remove('expanded');
+        document.body.classList.add('sidebar-open');
+      } else {
+        sidebar.classList.add('hidden');
+        main.classList.add('expanded');
+        document.body.classList.remove('sidebar-open');
+      }
+    }
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    sidebarOpen = !sidebarOpen;
+    applySidebar();
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebarOpen = false;
+    applySidebar();
+  });
+
+  window.addEventListener('resize', () => {
+    sidebarOpen = !isMobile();
+    applySidebar();
+  });
+
+  applySidebar();
+
+  // Page navigation
+  function navigateTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+    const link = document.querySelector('.nav-link[data-page="' + pageId + '"]');
+    if (link) link.classList.add('active');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.pushState(null, '', '#' + pageId);
+
+    if (isMobile()) {
+      sidebarOpen = false;
+      applySidebar();
+    }
+
+    // Re-animate bars
+    setTimeout(() => {
+      document.querySelectorAll('.page.active .bar-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = w; }, 50);
+      });
+    }, 100);
+  }
+
+  document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo(link.dataset.page);
+    });
+  });
+
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo(el.dataset.nav);
+    });
+  });
+
+  // Load from hash
+  function loadFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) { navigateTo('overview'); return; }
+    if (document.getElementById('page-' + hash)) { navigateTo(hash); }
+    else { navigateTo('overview'); }
+  }
+
+  window.addEventListener('popstate', loadFromHash);
+  loadFromHash();
+
+  // Back to top
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
