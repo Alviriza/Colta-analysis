@@ -194,8 +194,7 @@ Repositori ini sudah disiapkan untuk GitHub Pages tanpa konfigurasi tambahan:
 
 ## 🙏 Kredit dan lisensi
 
-📝 **Strategi & dokumentasi:** [@Alviriza](https://github.com/Alviriza)  
-🤖 **Dirancang dan dikembangkan dengan:** Claude (Anthropic) sebagai mitra strategi & frontend  
+📝 **Strategi & dokumentasi:** [@Alviriza](https://github.com/Alviriza)    
 🔤 **Tipografi:** [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) oleh Tokotype · [JetBrains Mono](https://www.jetbrains.com/lp/mono/) oleh JetBrains
 
 > ⚖️ Repositori ini berisi dokumen strategi merek dan aset desain milik Colta. Kode landing page dan struktur dokumen dapat dijadikan referensi untuk tujuan pembelajaran. Untuk penggunaan komersial atau adaptasi, mohon hubungi terlebih dahulu.
